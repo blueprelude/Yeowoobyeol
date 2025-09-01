@@ -1,0 +1,483 @@
+/* ===== nav ===== */
+nav{
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    padding: 10px 14px;
+    background-color: var(--panel-color);
+    border-right: 1px solid var(--border-color);
+    transition: var(--tran-05);
+}
+nav.close{
+    width: 73px;
+}
+nav .logo-name{
+    display: flex;
+    align-items: center;
+}
+nav .logo-image{
+    display: flex;
+    justify-content: center;
+    min-width: 45px;
+}
+nav .logo-image img{
+    width: 90px;
+    object-fit: cover;
+}
+nav.close .logo_name{
+    opacity: 0;
+    pointer-events: none;
+}
+nav .menu-items{
+    margin-top: 40px;
+    height: calc(100% - 90px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+/* ==== 사이드바 메뉴 ==== */
+.menu-items li{
+    list-style: none;
+}
+.menu-items li a{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    text-decoration: none;
+    position: relative;
+}
+.nav-links li a:hover:before{
+    content: "";
+    position: absolute;
+    left: -7px;
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+body.dark li a:hover:before{
+    background-color: var(--text-color);
+}
+.menu-items li a i{
+    font-size: 24px;
+    min-width: 45px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black-light-color);
+}
+.menu-items li a .link-name{
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--black-light-color);    
+    transition: var(--tran-05);
+}
+nav.close li a .link-name{
+    opacity: 0;
+    pointer-events: none;
+}
+.nav-links li a:hover i,
+.nav-links li a:hover .link-name{
+    color: var(--primary-color);
+}
+body.dark .nav-links li a:hover i,
+body.dark .nav-links li a:hover .link-name{
+    color: var(--text-color);
+}
+
+/* === 사이드바 로그아웃 다크모드 스위치 === */
+.menu-items .logout-mode{
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+}
+.menu-items .mode{
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+.menu-items .mode-toggle{
+    position: absolute;
+    right: 14px;
+    height: 50px;
+    min-width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* ===== 대시보드 ===== */
+.dashboard{
+    position: relative;
+    left: 250px;
+    background-color: var(--panel-color);
+    min-height: 100vh;
+    width: calc(100% - 250px);
+    padding: 10px 14px;
+    transition: var(--tran-05);
+}
+nav.close ~ .dashboard{
+    left: 73px;
+    width: calc(100% - 73px);
+}
+/* 사이드바 메뉴 접기 펴기 버튼 */
+.dashboard .sidebar-toggle{
+    font-size: 26px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+.dashboard {
+    padding-top: 50px;
+}
+
+.binder {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+/* ==== 검색 바  ==== */
+.search-box {
+    display: flex;
+    height: 35px;
+    align-items: center;
+}
+input.search-box {
+    display: flex;
+    border: 1px solid var(--border-color);
+    background-color: var(--panel-color);
+    padding: 0 15px 0 15px;
+    border-radius: 5px;
+    height: 35px;
+    max-width: 600px;
+    min-width: 300px;
+    color: var(--text-color);
+    font-size: 20px;
+    font-weight: 400;
+    outline: none;
+    margin: 0 10px 0 15px;
+}
+i.search-box {
+    display: flex;
+    font-size: 22px;
+    color: var(--black-light-color);
+    cursor: pointer;
+}
+
+/* === 테이블 위 제목 === */
+.title{
+    display: flex;
+    align-items: center;
+    margin: 60px 0 30px 0;
+    padding: 5px;
+    color: var(--text-color);
+}
+.text {
+    padding-left: 10px;
+    font-size: 23px;
+    
+}
+/* === 테이블 CSS === */
+.activity-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.activity-table td, .activity-table th {
+    padding: 18px;
+}
+.activity-table th {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--text-color);
+    text-align: center;
+    vertical-align: top;
+}
+.activity-table td {
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 20px;
+    white-space: nowrap;
+    margin: 0 15px;
+    color: var(--text-color);
+}
+.activity-table tbody tr:hover {
+    background-color: var(--color3);
+}
+.activity-table tbody tr:active {
+    background-color: var(--color2);
+}
+.activity-table .table-data {
+    text-align: left;
+    vertical-align: top;
+}
+.activity-table .table-link {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+/* === 도서, 사용자 상세 폼 === */
+.form .elem-container td{
+    padding: 10px;
+}
+.form .input-bar {
+    border: none;
+    background-color: lightgray;
+	padding: 12px 15px;
+	margin: 5px 0;
+	width: 300px;
+    
+    font-size: 16px;
+}
+.form .labelname {
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 18px;
+    margin-right: 20px;
+}
+.form .data{
+    color: var(--text-color);
+} 
+
+/* 버튼 */
+.activity .action-btn {
+  background-color: var(--primary-color);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin-left: 10px;
+  
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+
+  cursor: pointer;
+}
+
+/* 다크모드 아이콘 */
+.switch-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 24px;
+    min-width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black-light-color) !important;
+}
+
+/* 로고 작아질 때 */
+nav .logo-name #logoimgsmall {
+    display: none;
+}
+nav .logo-name #logoimg.small {
+    transform: scale(65%);
+    transform-origin: center center;
+}
+
+/* 화면 크기 400 미만의 경우 등장하는 홈 버튼 */
+#house.small-mode {
+    display: none;
+}
+#house {
+    display: none;
+}
+.hidden {
+    display: none;
+}
+
+/* ===== 푸터 ===== */
+footer {
+    height: 300px;
+}
+
+/* ============== 반응형 ============== */
+@media (min-width: 781px) and (max-width: 1500px) {
+    nav{
+        width: 73px;
+    }
+    nav.close{
+        width: 250px;
+    }
+    nav .logo_name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close .logo_name{
+        opacity: 1;
+        pointer-events: auto;
+    }
+    nav li a .link-name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close li a .link-name{
+        opacity: 1;
+        pointer-events: auto;
+    }
+    nav ~ .dashboard{
+        left: 73px;
+        width: calc(100% - 73px);
+    }
+    nav.close ~ .dashboard{
+        left: 250px;
+        width: calc(100% - 250px);
+    }
+    .activity{
+        overflow-X: scroll;
+    }
+    nav .logo-name #logoimgsmall {
+        display: block;
+        transform: scale(65%);
+    }
+    nav .logo-name #logoimg {
+        display: none;
+    }
+    #house.small-mode {
+        display: none;
+    }
+    #house {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@media (min-width: 561px) and (max-width: 780px) {
+    .dashboard{
+        width: calc(100% / 2 - 15px);
+    }
+    nav .logo-name #logoimg {
+        display: none;
+    }
+    
+    nav .logo-name #logoimgsmall {
+        display: block;
+        transform: scale(65%);
+    }
+    
+    #house.small-mode {
+        display: none;
+    }
+    #house {
+        opacity: 0;
+        display: none;
+    }
+}
+@media (min-width: 401px) and (max-width: 560px) {
+    .dashboard{
+        width: calc(100% / 2 - 15px);
+    }
+    nav .logo-name #logoimg {
+        display: none;
+    }
+    
+    nav .logo-name #logoimgsmall {
+        display: block;
+        transform: scale(65%);
+    }
+    
+    #house.small-mode {
+        display: none;
+    }
+    #house {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@media (max-width: 400px) {
+    nav{
+        width: 73px;
+    }
+    nav.close {
+        width: 0px;
+    }
+    nav .logo_name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close .logo_name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav li a .link-name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close li a .link-name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close ~ .dashboard{
+        left: 0;
+        width: 100%;
+    }
+    nav ~ .dashboard{
+        left: 73px;
+        width: calc(100% - 73px);
+    }
+
+    nav .logo-name #logoimg {
+        display: none;
+    }
+    
+    nav .logo-name #logoimgsmall {
+        display: none;
+    }
+    
+}
+
+@media (max-width: 399px) {
+    #house.small-mode {
+        display: flex;
+    }
+    #house {
+        display: flex;
+    }
+}
+
+/*--페이징--*/
+.returnPaging{display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center;    /* 수직 가운데 정렬 */
+  height: 10vh;} /* 위아래 높이 조절 */
+  
+.rentalPaging{display:flex; justify-content:center; align-items:center; height:10vh;}
+
+.listPaging{display:flex; justify-content:center; align-items:center; height:10vh;}
+
+#page{font-size : 20px; }
+#page td{padding : 20px; }
+#page a{text-decoration: none; color: #7BDFF2;}
+#page a:hover{color : #EFF7F6;}
+
+#page td.active {
+    color: #fff; /* 글자색을 흰색으로 */
+    font-weight: bold; /* 글자를 굵게 */
+}
+
+
+#page td.active a {
+    color: red; /* 현재 페이지 링크의 글자색을 흰색으로 */
+}
+
+
+/* === 관리자 페이지 페이징 관련 === */
+.adminpaging{
+	display:flex; 
+	justify-content:center; 
+	align-items:left; 
+	height:10vh; 
+	/* width: calc(100% - 73px); */
+}
+#adminpage{font-size : 20px; }
+#adminpage td{padding : 20px; }
+#adminpage{
+	--adminpage-text-color :#408080;
+}
+
+#adminpage a{text-decoration: none; color: var(--text-color);}
+#adminpage a:hover{color : var(--adminpage-text-color);}

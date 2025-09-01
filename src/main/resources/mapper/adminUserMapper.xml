@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.admin.mapper.AdminUserMapper">  
+ 
+	<select id="getUserList" resultType="com.fox.admin.domain.AdminUserDTO">
+		SELECT ROWNUM, YU_USERID, YU_USERNAME, YU_BIRTH, YU_PHONE, YU_EMAIL, YU_INDATE, YU_INDATE_CHK, YU_OUTDATE, YU_OUTCOMM, YU_AUTH, YU_DEL
+		FROM( 
+			SELECT 
+				YU_USERID, 
+				YU_USERNAME, 
+				YU_BIRTH, 
+				YU_PHONE, 
+				YU_EMAIL, 
+				TO_CHAR(YU_INDATE,'YYYY-MM-DD') YU_INDATE,
+				TO_DATE(SYSDATE,'YYYY-MM-DD') - TO_DATE(YU_INDATE,'YYYY-MM-DD') AS YU_INDATE_CHK,
+				DECODE(TO_CHAR(YU_OUTDATE,'YYYY-MM-DD'),NULL,'-',TO_CHAR(YU_OUTDATE,'YYYY-MM-DD')) YU_OUTDATE, 
+				YU_OUTCOMM, 
+				DECODE(YU_AUTH,'Y','사용중','N','휴면전환') YU_AUTH,
+				YU_DEL
+			FROM YB_USER
+			WHERE YU_AUTH != 'S'
+			ORDER BY YU_INDATE DESC
+		) OFFSET #{params.offset} ROWS FETCH NEXT #{params.recordSize} ROWS ONLY
+	</select>
+	
+	<select id="getUserData" resultType="com.fox.admin.domain.AdminUserDTO">
+		SELECT 
+			YU_USERID, 
+			YU_USERNAME, 
+			YU_BIRTH, 
+			YU_PHONE, 
+			YU_EMAIL, 
+			TO_CHAR(YU_INDATE,'YYYY-MM-DD') YU_INDATE,
+			TO_DATE(SYSDATE,'YYYY-MM-DD') - TO_DATE(YU_INDATE,'YYYY-MM-DD') AS YU_INDATE_CHK,
+			DECODE(TO_CHAR(YU_OUTDATE,'YYYY-MM-DD'),NULL,'-',TO_CHAR(YU_OUTDATE,'YYYY-MM-DD')) YU_OUTDATE, 
+			YU_OUTCOMM, 
+			DECODE(YU_AUTH,'Y','사용중','N','휴면전환') YU_AUTH,
+			YU_DEL 
+		FROM YB_USER
+		where YU_USERID = #{ yu_userid }
+	</select>
+	
+	<select id="getUserBookList" resultType="com.fox.admin.domain.AdminUserBookDTO">
+		SELECT ROWNUM, YBI_IDX, YBI_SUBJECT, YBI_NAME, YRI_RTDATE, YRI_REDATE
+		FROM(
+			SELECT 
+				YBI.YBI_IDX, 
+				YBI.YBI_SUBJECT, 
+				YBI.YBI_NAME, 
+				TO_CHAR(YRI.YRI_RTDATE,'YYYY-MM-DD') YRI_RTDATE, 
+				DECODE(TO_CHAR(YRI.YRI_REDATE,'YYYY-MM-DD'),NULL,'-',TO_CHAR(YRI.YRI_REDATE,'YYYY-MM-DD')) YRI_REDATE
+			FROM YB_BOOK_INFO YBI, YB_RENTAL_INFO YRI
+			WHERE 
+					YRI.YU_USERID=#{ yu_userid } 
+				AND YBI.YBI_IDX = YRI.YBI_IDX
+			ORDER BY YRI.YRI_RTDATE DESC
+		)
+	</select>
+	
+	<update id="UserauthN">
+		UPDATE YB_USER SET YU_OUTDATE=SYSDATE, YU_AUTH=#{ yu_auth }, YU_DEL='N'
+		WHERE YU_USERID=#{ yu_userid } 
+	</update>
+	
+	<update id="UserauthY">
+		UPDATE YB_USER SET YU_OUTDATE=NULL, YU_AUTH=#{ yu_auth }, YU_DEL='N'
+		WHERE YU_USERID=#{ yu_userid } 
+	</update>
+	
+	<update id="UserauthD">
+		UPDATE YB_USER SET YU_OUTDATE=SYSDATE, YU_DEL=#{ yu_del }
+		WHERE YU_USERID=#{ yu_userid } 
+	</update>
+	
+	<select id="getUserSearch" resultType="com.fox.admin.domain.AdminUserDTO">
+		SELECT ROWNUM, YU_USERID, YU_USERNAME, YU_BIRTH, YU_PHONE, YU_EMAIL, YU_INDATE, YU_INDATE_CHK, YU_OUTDATE, YU_OUTCOMM, YU_AUTH, YU_DEL
+		FROM(
+			SELECT 
+				YU_USERID, 
+				YU_USERNAME, 
+				YU_BIRTH, 
+				YU_PHONE, 
+				YU_EMAIL, 
+				TO_CHAR(YU_INDATE,'YYYY-MM-DD') YU_INDATE,
+				TO_DATE(SYSDATE,'YYYY-MM-DD') - TO_DATE(YU_INDATE,'YYYY-MM-DD') AS YU_INDATE_CHK,
+				DECODE(TO_CHAR(YU_OUTDATE,'YYYY-MM-DD'),NULL,'-',TO_CHAR(YU_OUTDATE,'YYYY-MM-DD')) YU_OUTDATE, 
+				YU_OUTCOMM, 
+				DECODE(YU_AUTH,'Y','사용중','N','휴면전환') YU_AUTH,
+				YU_DEL 
+			FROM YB_USER
+			WHERE YU_AUTH != 'S'
+			${param2}
+			ORDER BY YU_INDATE DESC
+		) OFFSET #{params.offset} ROWS FETCH NEXT #{params.recordSize} ROWS ONLY
+	</select>
+	
+	<select id="getUserBookListSearch" resultType="com.fox.admin.domain.AdminUserBookDTO">
+		SELECT 
+			YBI.YBI_IDX, 
+			YBI.YBI_SUBJECT, 
+			YBI.YBI_NAME, 
+			TO_CHAR(YRI.YRI_RTDATE,'YYYY-MM-DD') YRI_RTDATE, 
+			DECODE(TO_CHAR(YRI.YRI_REDATE,'YYYY-MM-DD'),NULL,'-',TO_CHAR(YRI.YRI_REDATE,'YYYY-MM-DD')) YRI_REDATE
+		FROM YB_BOOK_INFO YBI, YB_RENTAL_INFO YRI
+		WHERE 
+			YRI.YU_USERID=#{ param1.yu_userid } 
+			${param2}
+			AND YBI.YBI_IDX = YRI.YBI_IDX
+		ORDER BY YRI.YRI_RTDATE DESC
+	</select>
+	
+	<select id="getUserNewList" resultType="com.fox.admin.domain.AdminUserDTO">
+		SELECT ROWNUM, YU_USERID, YU_USERNAME, YU_EMAIL, YU_INDATE, YU_INDATE_CHK 
+		FROM (
+			SELECT 
+			    YU_USERID, 
+			    YU_USERNAME,
+			    YU_BIRTH, 
+			    YU_EMAIL, 
+			    TO_CHAR(YU_INDATE,'YYYY-MM-DD') YU_INDATE,
+				TO_DATE(SYSDATE,'YYYY-MM-DD') - TO_DATE(YU_INDATE,'YYYY-MM-DD') AS YU_INDATE_CHK
+				FROM YB_USER
+			WHERE YU_AUTH != 'S' AND YU_DEL='N'
+			ORDER BY YU_INDATE DESC
+		) WHERE ROWNUM BETWEEN 1 AND 10
+	</select>
+	
+	<select id="count">
+		SELECT 
+			COUNT(*) cnt 
+		FROM YB_USER
+		WHERE YU_AUTH !='S' ${param2}
+	</select>
+</mapper>
