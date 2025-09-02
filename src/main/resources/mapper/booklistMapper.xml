@@ -47,7 +47,7 @@
 	<select id="getBookList" resultType="com.fox.booklist.domain.booklistDTO">
    SELECT 
         YBI.YBI_IDX, YBI.YBI_SUBJECT, YBI.YBI_PUBLI, YBI.YBI_NAME, YBI.YBI_RENTAL,
-      CASE when max(CASE WHEN YRI.YU_USERID = #{yu_userid} AND YRI.YRI_REDATE IS NULL THEN '대여중' ELSE NULL END) = '대여중' THEN '대여중' ELSE '대여가능' END as rentalst
+      	CASE when max(CASE WHEN YRI.YU_USERID = #{yu_userid} AND YRI.YRI_REDATE IS NULL THEN '대여중' ELSE NULL END) = '대여중' THEN '대여중' ELSE '대여가능' END as rentalst
     FROM yb_book_info YBI
     LEFT JOIN yb_rental_info YRI ON YBI.ybi_idx = YRI.ybi_idx
     <where>
@@ -70,9 +70,39 @@
     </where>
      GROUP BY
     YBI.YBI_IDX, YBI.YBI_SUBJECT, YBI.YBI_PUBLI, YBI.YBI_NAME, YBI.YBI_RENTAL
-    having CASE when max (case when YRI.YU_USERID = #{yu_userid} AND YRI.YRI_REDATE IS NULL THEN '대여중' ELSE NULL END) = '대여중' THEN '대여중' ELSE '대여가능' END = '대여가능'
+   	 having CASE when max (case when YRI.YU_USERID = #{yu_userid} AND YRI.YRI_REDATE IS NULL THEN '대여중' ELSE NULL END) = '대여중' THEN '대여중' ELSE '대여가능' END = '대여가능'
     ORDER BY YBI.ybi_subject asc
     OFFSET #{params.offset} ROWS FETCH NEXT #{params.recordSize} ROWS ONLY
 </select>
-	
+
+
+	<select id="getBookListAll" resultType="com.fox.booklist.domain.booklistDTO">
+   SELECT 
+        YBI.YBI_IDX, YBI.YBI_SUBJECT, YBI.YBI_PUBLI, YBI.YBI_NAME, YBI.YBI_RENTAL,
+      CASE when max(CASE WHEN YRI.YRI_REDATE IS NULL THEN '대여중' ELSE NULL END) = '대여중' THEN '대여중' ELSE '대여가능' END as rentalst
+    FROM yb_book_info YBI
+    LEFT JOIN yb_rental_info YRI ON YBI.ybi_idx = YRI.ybi_idx
+    <where>
+        <if test="params.keyword != null and params.keyword != ''">
+        	<choose>
+        	<when test ="params.searchType == 'searchBookName'">
+            	YBI.YBI_SUBJECT LIKE '%' || #{params.keyword} || '%'
+            </when>
+            <when test ="params.searchType == 'author'">
+           	 	YBI.YBI_NAME LIKE '%' || #{params.keyword} || '%'
+            </when>
+            <when test ="params.searchType == 'bookNum'">
+           	 	YBI.YBI_IDX = #{params.keyword}
+            </when>
+            <when test ="params.searchType == 'publi'">
+           	 	YBI.YBI_PUBLI like '%' || #{params.keyword} || '%'
+            </when>
+        </choose>
+        </if>
+    </where>
+     GROUP BY
+    YBI.YBI_IDX, YBI.YBI_SUBJECT, YBI.YBI_PUBLI, YBI.YBI_NAME, YBI.YBI_RENTAL
+    ORDER BY YBI.ybi_subject asc
+    OFFSET #{params.offset} ROWS FETCH NEXT #{params.recordSize} ROWS ONLY
+</select>
 </mapper>

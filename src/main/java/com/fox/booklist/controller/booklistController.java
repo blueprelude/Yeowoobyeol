@@ -47,8 +47,26 @@ public class booklistController {
 		
 		// 1. 세션에서 로그인 사용자 ID 가져오기
 		String yu_userid = (String) session.getAttribute("login_id");
-		
+		if(yu_userid == null) {
+			List<booklistDTO> nullAllbook = booklistMapper.getBookListAll(params);
+			model.addAttribute("nullAllbook", nullAllbook);
+			int totalCountNull = pagingMapper.countAll(params);
+			Pagination pagination = new Pagination(totalCountNull, params);
+			params.setPagination(pagination);
+			System.out.println(totalCountNull);
+			
+			if(params.getPage() < 0) {
+				params.setPage(1);
+			}
+			
+			model.addAttribute("nullAllbook", nullAllbook);
+			model.addAttribute("totalCount", totalCountNull);
+	        model.addAttribute("searchDTO", params);
+			return "list";
+			
+		}else {
 		// 2. 검색 조건에 맞는 전체 게시글 수 조회
+		List<booklistDTO> bookList = booklistMapper.getBookList(params, yu_userid); // Mapper에 DTO와 ID를 함께 넘김
 		int totalCount = pagingMapper.count(params, yu_userid);
 		
 		System.out.println( yu_userid + "의 대여가능한 전체 도서갯수:" + totalCount);
@@ -62,7 +80,6 @@ public class booklistController {
 			params.setPage(1);
 		}
 		// 4. 페이지네이션 정보와 사용자 ID, 검색 조건으로 목록 조회 (params : keyword)
-		List<booklistDTO> bookList = booklistMapper.getBookList(params, yu_userid); // Mapper에 DTO와 ID를 함께 넘김
 		
 			if(bookList.isEmpty()) {
 				//없다면 neResult로 넘겨줌
@@ -74,10 +91,12 @@ public class booklistController {
 			
 			
 		// 5. 모델에 데이터 담아 뷰로 전달
-		model.addAttribute("searchType", searchType);
+			
 		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchDTO", params);
 		model.addAttribute("bookList", bookList);
+		}
 		return "list";
 	}
 }

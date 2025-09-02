@@ -29,6 +29,9 @@ public interface BooklistMapper {
 
 	List<booklistDTO> authorSearch(@Param("params") SearchDTO params, @Param("yu_userid") String yu_userid);
 
+	List<booklistDTO> getBookListAll(@Param("params") SearchDTO params);
+
+
 	
 
 }

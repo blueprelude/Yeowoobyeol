@@ -18,4 +18,7 @@ public interface PagingMapper {
 	//반납 검색,로그인 사용자 정보
 	int returnCount(@Param("yu_userid") String yu_userid, String keyword);
 
+	int countAll(@Param("params") SearchDTO params);
+
 }
+ 

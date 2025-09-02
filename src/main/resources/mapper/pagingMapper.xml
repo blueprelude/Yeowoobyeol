@@ -33,6 +33,33 @@
 	    </if>
 	</select>
 	
+	<!-- 비로그인 전체 갯수-->
+	<select id="countAll" resultType="int">
+    SELECT COUNT(*)
+    FROM YB_BOOK_INFO
+    <where>
+        YBI_IDX not in (
+            select ybi_idx from yb_rental_info where yri_redate is null
+        )
+        <if test="params.keyword != null and params.keyword != ''">
+            <choose>
+                <when test="params.searchType == 'searchBookName'">
+                    AND YBI_SUBJECT LIKE '%' || #{params.keyword} || '%'
+                </when>
+                <when test="params.searchType == 'author'">
+                    AND YBI_NAME LIKE '%' || #{params.keyword} || '%'
+                </when>
+                <when test="params.searchType == 'bookNum'">
+                    AND YBI_IDX = #{params.keyword}
+                </when>
+                <when test="params.searchType == 'publi'">
+                    AND YBI_publi like '%' || #{params.keyword} || '%'
+                </when>
+            </choose>
+        </if>
+    </where>
+</select>
+	
 <!--	    <if test="keyword != null and keyword != ''">
 	        AND (YBI_SUBJECT LIKE '%' || #{keyword} || '%')
 	    </if>-->

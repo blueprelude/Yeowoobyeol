@@ -130,7 +130,7 @@
 			        <li>
 			          <a href="/logout">
 			            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-			            <span class="link-name" onclick="return confirm('로그아웃 하시겠습니까?');">로그아웃</span>
+			            <span class="link-name" id= "logoutButton">로그아웃</span>
 			          </a>
 			        </li>
 			        <li class="mode">
@@ -249,7 +249,14 @@
     </div>
   </section>
   
-  	
+  
+  
+		  	<script>
+				    document.getElementById('logoutButton').onclick = function() {
+				        return confirm('로그아웃 하시겠습니까?');
+				    };
+				</script>
+		  	
 		
 	
 		<!--목록과 일치하는 도서명이없을시 메시지-->
@@ -304,8 +311,6 @@
 			</script>
 		
 			
-		
-		
 <!-- 다크모드 -->
   <script src="./js/darkmode.js"></script>
   

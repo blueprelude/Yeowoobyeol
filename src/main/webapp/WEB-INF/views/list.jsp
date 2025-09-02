@@ -61,6 +61,13 @@
 		            <span class="link-name">도서 목록</span>
 	          	  </a>
 	       	   </c:if>
+	       	   
+		       <c:if test="${sessionScope.login_id eq null}"> 
+		          <a href="/BookList?searchType=">
+		           	 <i class="fa-solid fa-book"></i>
+		            <span class="link-name">도서 목록</span>
+	          	  </a>
+	       	   </c:if>
 	        </li>
 		     <c:if test="${sessionScope.login_id != null and sessionScope.login_id ne 'admin'}">   
 			        <li> 
@@ -131,12 +138,24 @@
 			        </li>
 	       	 	</c:if>
 	       	 	
+			        <c:if test = "${sessionScope.login_id eq null}">
 			        <li>
-			          <a href="/logout">
+			          <a href="/LoginForm">
 			            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-			            <span class="link-name" onclick="return confirm('로그아웃 하시겠습니까?');">로그아웃</span>
+			            <span class="link-name" >로그인</span>
 			          </a>	
 			        </li>
+			        </c:if>
+			        
+			          <c:if test = "${sessionScope.login_id ne null and sessionScope.longin_id ne 'admin'}">
+				        <li>
+				          <a href="/logout">
+				            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+				            <span class="link-name" id ="logoutButton">로그아웃</span>
+				          </a>	
+				        </li>
+			        </c:if>
+			        
 			        <li class="mode">
 			          <a href="#">
 			            <div class="switch-icon" id="sun">
@@ -185,41 +204,90 @@
     <div class="activity">
       <div class="title">
         <i class="fa-solid fa-book"></i>
+        <c:if test = "${sessionScope.login_id ne null}">
         <span class="text">도서 목록 [대여 가능 도서 : ${totalCount}]</span>
- 
+        </c:if>
+        
+        <c:if test = "${sessionScope.login_id eq null}">
+      	  <span class="text">도서 목록 [대여 가능 도서 : 637]</span>
+        </c:if>
       </div>
-      <table class="activity-table">
-        <thead>
-	          <tr>
-	            <th class="table-title">번호</th>
-	            <th class="table-title">책제목</th>
-	            <th class="table-title">출판사</th>
-	            <th class="table-title">저자</th>
-	            <th class="table-title">대여</th>
-	          </tr>
-        </thead>
-        <tbody>
-       <c:forEach var = "books" items = "${bookList}">
-			<tr>	
-				<td>${books.ybi_idx}</td>
-				<td>${books.ybi_subject}</td>
-				<td>${books.ybi_publi}</td>
-				<td>${books.ybi_name}</td>
-				<td>
-					<c:if test="${books.rentalst eq '대여가능'}">	
-							<form action ="/Rent" method ="get" onsubmit="return confirmRental('${books.ybi_subject}');">
-								<input type = "hidden" name ="ybi_idx" 		value = "${books.ybi_idx}">
-								<input type = "hidden" name ="ybi_subject" 		value = "${books.ybi_subject}">
-								<button class="rent-btn" type = "submit">대여</button>
-							</form>
-					</c:if> 
-				</td>
-			</tr>
-		</c:forEach>
-        	</tbody>
-	</table>
-		    </div>
+      
+	<table class="activity-table">
+      <c:if test = "${sessionScope.login_id ne null}">  
+		        <thead>
+			          <tr>
+			            <th class="table-title">번호</th>
+			            <th class="table-title">책제목</th>
+			            <th class="table-title">출판사</th>
+			            <th class="table-title">저자</th>
+			            <th class="table-title">대여</th>
+			          </tr>
+		        </thead>
+		       <c:forEach var = "books" items = "${bookList}">
+			        <tbody>
+						<tr>	
+							<td>${books.ybi_idx}</td>
+							<td>${books.ybi_subject}</td>
+							<td>${books.ybi_publi}</td>
+							<td>${books.ybi_name}</td>
+							<td>
+								<c:if test="${books.rentalst eq '대여가능'}">	
+										<form action ="/Rent" method ="get" onsubmit="return confirmRental('${books.ybi_subject}');">
+											<input type = "hidden" name ="ybi_idx" 		value = "${books.ybi_idx}">
+											<input type = "hidden" name ="ybi_subject" 		value = "${books.ybi_subject}">
+											<button class="rent-btn" type = "submit">대여</button>
+										</form>
+								</c:if> 
+							</td>
+						</tr>
+			        	</tbody>
+				</c:forEach>
+		      </c:if>  	
+		        	
+		    <c:if test = "${sessionScope.login_id eq null}">  	
+				        <thead>
+					          <tr>
+					            <th class="table-title">번호</th>
+					            <th class="table-title">책제목</th>
+					            <th class="table-title">출판사</th>
+					            <th class="table-title">저자</th>
+					            <th class="table-title">대여</th>
+					          </tr>
+				        </thead>
+				       <c:forEach var = "nullAll" items = "${nullAllbook}">
+				        	<tbody>
+								<tr>	
+									<td>${nullAll.ybi_idx}</td>
+									<td>${nullAll.ybi_subject}</td>
+									<td>${nullAll.ybi_publi}</td>
+									<td>${nullAll.ybi_name}</td>
+									<td>
+										<c:if test="${nullAll.rentalst eq '대여가능' or nullAll.rentalst eq '대여중' }">	
+												<form action ="/Rent" method ="get" onsubmit="return confirmRental('${nullAll.ybi_subject}');">
+													<input type = "hidden" name ="ybi_idx" 		value = "${nullAll.ybi_idx}">
+													<input type = "hidden" name ="ybi_subject" 		value = "${nullAll.ybi_subject}">
+													<button class="rent-btn" type = "submit">대여</button>
+												</form>
+										</c:if> 
+									</td>
+								 </tr>
+				        	</tbody>
+						</c:forEach>
+		      </c:if>
+		      
+		      
+			</table>
+	  </div>
   </section>
+  
+  
+				<script>
+				    document.getElementById('logoutButton').onclick = function() {
+				        return confirm('로그아웃 하시겠습니까?');
+				    };
+				</script>
+					
 	  		<!--목록과 일치하는 도서명이없을시 메시지-->
 	  			<script>
 	        // 서버에서 전달받은 값이 true인지 확인
@@ -325,6 +393,7 @@
 				    changePlaceholder(); 
 				};			
 			</SCRIPT>
+			
 	<!-- 페이징  -->
 		<div class = "listPaging">
 			<%@include file = "/WEB-INF/include/paging.jsp" %>
