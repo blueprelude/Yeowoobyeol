@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.users.mapper.UserInfoMapper">  
+  
+  <!-- getUser -->
+  <select  id="getUser" parameterType = "com.fox.users.domain.UserInfoDTO"
+  resultType = "com.fox.users.domain.UserInfoDTO" >
+     
+     SELECT      YU_USERID,  
+                 YU_PASSWD,  
+                 YU_USERNAME,
+                 YU_BIRTH,
+                 YU_PHONE,
+                 YU_EMAIL,
+                 TO_CHAR(YU_INDATE, 'YYYY-MM-DD DY') YU_INDATE
+      FROM       YB_USER 
+      WHERE      YU_USERID =  #{ yu_userid }  
+  
+  </select>
+  
+  <select id="checkId" parameterType="String" resultType="int">
+    SELECT	COUNT(*) 
+     FROM	YB_USER
+     WHERE 	YU_USERID = #{yu_userid}
+</select>
+  
+  <select id="login">
+  
+     SELECT      YU_USERID,  
+                 YU_PASSWD,  
+                 YU_USERNAME,
+                 YU_BIRTH,
+                 YU_PHONE,
+                 YU_EMAIL,
+                 YU_INDATE,
+                 YU_AUTH
+     FROM        YB_USER 
+     WHERE       YU_USERID =  #{ yu_userid } AND YU_PASSWD = #{ yu_passwd } AND YU_DEL = 'N'
+  
+  </select>
+  
+  <insert  id="insertUser">
+    INSERT INTO YB_USER (
+	    		YU_USERID,
+	    		YU_PASSWD,
+	    		YU_USERNAME,
+	    		YU_BIRTH,
+	    		YU_PHONE,
+	    		YU_EMAIL,
+	    		YU_INDATE,
+	    		YU_AUTH,
+	    		YU_DEL
+	    		
+	   ) VALUES (
+	    		#{ yu_userid  },
+	    		#{ yu_passwd  },
+	    		#{ yu_username },
+	    		#{ yu_birth },
+	    		#{ yu_phone },
+	    		#{ yu_email },
+	    		sysdate,
+	    		'Y',
+	    		'N'
+	   )
+  </insert>
+  
+  <update  id="updateUser">
+  	UPDATE   YB_USER
+  	 SET	 YU_EMAIL = #{ yu_email },
+  	         YU_PHONE = #{ yu_phone }
+  	 WHERE   YU_USERID = #{ yu_userid } AND YU_DEL = 'N'
+  </update>
+  
+  <update id="changePw">
+  	UPDATE	YB_USER
+  	 SET	YU_PASSWD = #{ yu_passwd }
+  	 WHERE  YU_USERID = #{ yu_userid }
+  </update>
+  
+  <update id="reLogin">
+  	UPDATE	YB_USER
+  	 SET	YU_AUTH = 'Y'
+  	 WHERE	YU_USERID = #{yu_userid} AND YU_AUTH = 'N' AND YU_DEL = 'N'
+  </update>
+  
+  <delete  id="deleteUser">
+    DELETE	FROM	YB_USER
+     WHERE  YU_USERID  =  #{ yu_userid }
+  </delete>
+</mapper>
+
