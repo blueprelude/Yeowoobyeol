@@ -12,6 +12,9 @@ import com.fox.bookuser.domain.userDTO;
 public interface UserMapper {
 	
 	//로그인 시 정보 확인
-	userDTO getUser( userDTO userDTO);
+	userDTO getUser(userDTO userDTO);
 	
 }
+
+
+/* @Param("yu_userid") String yu_userid, */

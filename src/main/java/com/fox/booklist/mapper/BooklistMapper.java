@@ -27,7 +27,7 @@ public interface BooklistMapper {
 
 	int renCount(String userId);
 
-	List<booklistDTO> authorSearch(SearchDTO params, String yu_userid);
+	List<booklistDTO> authorSearch(@Param("params") SearchDTO params, @Param("yu_userid") String yu_userid);
 
 	
 
