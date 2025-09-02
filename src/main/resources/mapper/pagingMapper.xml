@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.paging.mapper.PagingMapper">
+	
+	
+	<!--전체 갯수-->
+	<select id="count">
+		SELECT COUNT(*)
+	    FROM YB_BOOK_INFO
+	    WHERE 1=1 and ybi_idx not in (
+	   	select ybi_idx from yb_rental_info
+   		where yu_userid = #{yu_userid , jdbcType=VARCHAR}
+   		and yri_redate is null
+	    )
+	    <if test="params.keyword != null and params.keyword != ''">
+		    	and(
+				   	<choose>
+			            <when test="params.searchType == 'searchBookName'">
+			                YBI_SUBJECT LIKE '%' || #{params.keyword} || '%'
+			            </when>
+			            <when test="params.searchType == 'author'">
+			                YBI_NAME LIKE '%' || #{params.keyword} || '%'
+			            </when>
+			            <when test="params.searchType == 'bookNum'">
+			                YBI_IDX = #{params.keyword}
+			            </when>
+			            <when test="params.searchType == 'publi'">
+			                YBI_publi like '%' || #{params.keyword} || '%'
+			            </when>
+			        </choose>
+	    	
+	    	)
+	    </if>
+	</select>
+	
+<!--	    <if test="keyword != null and keyword != ''">
+	        AND (YBI_SUBJECT LIKE '%' || #{keyword} || '%')
+	    </if>-->
+	
+	<!--대여갯수-->
+	<select id="rentalCount" resultType="int">
+			SELECT 
+		   count(*)
+		FROM yb_book_info ybi, yb_rental_info yri 
+		WHERE 
+		    yri.yu_userid = #{yu_userid}
+		    AND ybi.ybi_idx = yri.ybi_idx
+		    AND yri.yri_redate IS NULL
+	</select>
+	
+	<!--반납갯수-->
+	<select id="returnCount" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM yb_book_info ybi, yb_rental_info yri 
+		WHERE 
+		    yri.yu_userid = #{yu_userid} 
+		    AND ybi.ybi_idx = yri.ybi_idx
+		    AND yri.yri_redate IS NOT NULL
+	</select>
+	
+	
+</mapper>

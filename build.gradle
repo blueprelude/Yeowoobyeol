@@ -23,6 +23,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url = 'https://repo.spring.io/snapshot' }
 }
 
 dependencies {
@@ -36,6 +37,13 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	// JSP + JSTL 설정 (Spring Boot 3.x, JDK 17 이상)
+	// 수동으로 하는 이유는 검색이 되지 않아서....
+ 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+ 	implementation 'jakarta.servlet:jakarta.servlet-api'
+ 	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+ 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
 }
 
 tasks.named('test') {

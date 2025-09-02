@@ -10,10 +10,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @MapperScan("com.fox.booklist.mapper")
 @SpringBootApplication
 @EnableScheduling
-public class YeowoobyeolApplication {
+public class foxbookApplication {
 
+	
 	public static void main(String[] args) {
-		SpringApplication.run(YeowoobyeolApplication.class, args);
+		SpringApplication.run(foxbookApplication.class, args);
 	}
 
 }

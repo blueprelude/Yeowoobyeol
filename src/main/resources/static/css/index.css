@@ -1,0 +1,511 @@
+@charset "UTF-8";
+
+/*----로그인 관련----*/
+.header-binder {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    
+}
+
+.header {
+    display: flex;
+    text-align: right;
+    padding: 15px;
+    padding-bottom: 0px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.header a {
+    text-align: center;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 30px;
+}
+
+.header a:hover {
+    color: #2398B1;
+}
+
+.header a.nohover:hover {
+    color: var(--primary-color);
+}
+
+.header a:not(.logo) {
+    margin-left: 20px;
+}
+
+.menu-subbind {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.mode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 30px;
+    
+}
+
+
+/*----메인 배너----*/
+#mainread {
+    width: 90%;
+    max-width: 700px;
+    margin: 2px;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+#mainread2 {
+    width: 90%;
+    max-width: 700px;
+    margin: 3px;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+#mainread {
+    font-size: 60px;
+}
+
+#mainread2 {
+    font-size: 25px;
+}
+.switch-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 24px;
+    min-width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black-light-color) !important;
+}
+#sun,
+#moon {
+    width: 30px;
+    height: 30px;
+    color: var(--black-light-color);
+}
+
+.hidden {
+    display: none;
+}
+
+/* 로고 작아질 때 */
+#logoimgsmall {
+    display: none;
+}
+
+#logoimg.small {
+    transform: scale(65%);
+    transform-origin: center center;
+}
+
+/* 배너 슬라이더 */
+.vertical-slider {
+    overflow: hidden;
+    margin-top: 30px;
+    height: 30px;
+    /* 한 칸 높이 */
+    width: 600px;
+    position: relative;
+}
+
+.slider-content {
+    display: flex;
+    flex-direction: column;
+    animation: slide-vertical 12s infinite;
+    /* 무한 반복 */
+}
+
+.menu-item {
+    height: 30px;
+    /* 칸 높이 고정 */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--primary-color);
+}
+
+.menu-item a {
+    text-decoration: none;
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+/* 호버시 메뉴 멈춤  */
+.vertical-slider:hover .slider-content {
+    animation-play-state: paused;
+}
+
+@keyframes slide-vertical {
+
+    /* 첫 번째 메뉴 */
+    0% {
+        transform: translateY(0);
+    }
+
+    15% {
+        transform: translateY(0);
+    }
+
+    /* 두 번째 메뉴 */
+    25% {
+        transform: translateY(-30px);
+    }
+
+    40% {
+        transform: translateY(-30px);
+    }
+
+    /* 세 번째 메뉴 */
+    50% {
+        transform: translateY(-60px);
+    }
+
+    65% {
+        transform: translateY(-60px);
+    }
+
+    /* 네 번째 메뉴 */
+    75% {
+        transform: translateY(-90px);
+    }
+
+    90% {
+        transform: translateY(-90px);
+    }
+
+    /* 마지막 메뉴에서 바로 첫 번째 메뉴로 돌아옴 */
+    100% {
+        transform: translateY(-120);
+    }
+
+}
+
+
+/*----텍스트 입력창 스타일----*/
+.search-container {
+    width: 90%;
+    margin: 15px;
+    max-width: 600px;
+    padding: 0 10px;
+}
+
+
+
+.search-container form {
+    display: flex;
+    align-items: center;
+    width: 600px;
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-box {
+    height: 60px;
+    width: 300px;
+    background: var(--panel-color);
+    border-radius: 40px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.search-txt {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0px;
+    color: var(--text-color);
+    font-size: 20px;
+    line-height: 30px;
+    width: 600px;
+    padding-left: 15px;
+}
+
+
+.search-btn {
+    color: var(--text-color);
+    float: right;
+    width: 50px;
+    height: 100%;
+    border-radius: 80%;
+    background: none;
+    border: none;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+
+/*----검색바 밑 배너----*/
+#menu2 {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+#menu2 a {
+    text-decoration: none;
+}
+
+#menu2 a:link {
+    color: var(--primary-color);
+}
+
+#menu2 a:visited {
+    color: var(--primary-color);
+}
+
+#menu2 a:hover {
+    color: #2398B1;
+}
+
+
+/*----푸터----*/
+
+.footer {
+    background-color: var(--primary-color);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    color: #2398B1;
+    font-size: 20px;
+    width: 100%;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+/*----배경----*/
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--box3-color);
+}
+
+.main {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#burger-menu {
+    flex: 1;
+}
+
+.header-binder, .main-container, .footer {
+    flex-shrink: 0;
+}
+
+.main-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+
+/*-------반응형-------*/
+
+
+@media (max-width: 780px) {
+
+
+
+    /*--메인글--*/
+    #mainread {
+        font-size: 2.7em;
+    }
+
+    #mainread2 {
+        font-size: 1.7em;
+    }
+
+    #menu2 td {
+        font-size: 20px;
+    }
+
+
+    /*--헤더--*/
+    #header a {
+        font-size: 15px;
+    }
+
+    #header a:not(.logo) {
+        margin: 0;
+    }
+
+
+    /*--메인로고 이미지--*/
+    #logoimg {
+        height: 30px;
+    }
+
+
+    /* --검색창 폼 --*/
+    .search-container {
+        margin: 0 auto;
+        max-width: 600px;
+        width: 90%;
+        text-align: center;
+    }
+
+    .search-container form {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .search-box {
+        display: flex;
+        width: 100%;
+    }
+
+    .search-btn {
+        width: 40px;
+        height: 100%;
+
+    }
+
+    .search-txt {
+        flex-grow: 1;
+        padding-left: 15px;
+    }
+
+
+
+    /*-- 푸터 --*/
+.footer {
+        font-size: 15px;
+    }
+
+}
+
+
+
+
+   /* 햄버거메뉴 버튼 */
+
+   #burger-menu {
+       display: none;
+       cursor: pointer;
+   }
+   
+   
+
+   #burger-menu span {	
+       display: block;
+       width: 30px;
+       height: 3px;
+       background: #003049;
+       margin: 5px 0;
+    
+   }
+   .dark #burger-menu span {	
+       display: block;
+       width: 30px;
+       height: 3px;
+       background: #7BDFF2;
+       margin: 5px 0;
+    
+   }
+
+   #nav-menu {
+       white-space: nowrap;
+       display: flex;
+       gap: 35px;
+        align-items: center;
+   }
+
+
+
+
+/*--햄버거메뉴--*/
+@media (max-width: 780px) {
+	
+	/* 버거버튼 클릭시 등장 메뉴  */
+    #nav-menu{
+    visibility: hidden;
+    flex-direction: column;
+    position: fixed; 
+    top: 10%;  /* 맨위 넓이 */
+    left: 50%; /* 왼쪽 50%만큼 넓이  */
+  	transform: translateX(-50%); /* 가운데로 조정 */
+    width: 80%; /*넓이  */
+    height: 40; /*높이  */
+    
+    background-color: var(--border-color); /* 배경색 */
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0s 0.3s;
+}
+
+	
+	/* 버튼클릭시 효과  */
+	#nav-menu.active {
+	    max-height: 100%; /* 활성화되면 높이도 100%로 */
+	    opacity: 1;
+	    visibility: visible;
+	    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0s;
+	}
+
+    #nav-menu a {
+        font-size: 20px;
+        /* 원하는 폰트 크기로 설정 */
+    }
+
+    /* 메뉴가 열렸을 때의 창 스타일 */
+    #nav-menu.active {
+        max-height: 500px;
+        opacity: 1;
+        visibility: visible;
+        transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0s;
+    }
+
+    #burger-menu {
+        display: block;
+    }
+	
+	
+
+
+    /* 배너  */
+    .menu-item a {
+        text-decoration: none; 
+        font-size: 17px;
+        color: var(--primary-color);
+    }
+
+
+}
+

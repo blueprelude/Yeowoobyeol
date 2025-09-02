@@ -5,15 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-
-@MapperScan("com.fox.paging.mapper")
-@MapperScan("com.fox.booklist.mapper")
 @SpringBootApplication
 @EnableScheduling
-public class YeowoobyeolApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(YeowoobyeolApplication.class, args);
-	}
-
+@MapperScan(basePackages = {"com.fox.bookrental.mapper" , "com.fox.bookuser.mapper"}) // <-- 패키지 경로를 정확히 확인!
+public class BookrentalApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(BookrentalApplication.class, args);
+    }
 }

@@ -1,0 +1,87 @@
+/* ===로고 폰트=== */
+@font-face {
+    font-family: 'SacheonUju-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2506-1@1.0/SacheonUju-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ===본문 폰트=== */
+@font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'GangwonEdu_OTFBoldA', sans-serif;
+}
+
+
+/*라이트  */
+:root{
+    /* ====== 색 ====== */
+    --primary-color: #003049;
+    --panel-color: #FFF;
+    --text-color: #000;
+    --black-light-color: #707070;
+    --border-color: #e6e5e5;
+    --toggle-color: #DDD;
+    --box1-color: #7BDFF2;
+    --box2-color: #B2F7EF;
+    --box3-color: #EFF7F6;
+    --rent-button: #003049;
+    --scrollbar : #003049;
+    /* ====== Transition ====== */
+    --tran-05: all 0.5s ease;
+    --tran-03: all 0.3s ease;
+    --tran-03: all 0.2s ease;
+}
+
+body{
+    min-height: 100vh;
+}
+
+/* ===== 다크모드 전환 시 색 ===== */
+body.dark{
+    --primary-color: #B7E5FE;
+    --panel-color: #242526;
+    --text-color: #CCC;
+    --black-light-color: #CCC;
+    --border-color: #4D4C4C;
+    --toggle-color: #FFF;
+    --box1-color: #3A3B3C;
+    --box2-color: #3A3B3C;
+    --box3-color: #3A3B3C;
+    --rent-button:#3A3B3C;
+    --scrollbar : #3A3B3C;
+}
+
+/* === 커스텀 스크롤바 CSS === */
+::-webkit-scrollbar {
+    width: 11px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 20px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #012031;
+}
+body.dark::-webkit-scrollbar-track {
+    background: #707070;
+    border-radius: 20px;
+}
+body.dark::-webkit-scrollbar-thumb:hover,
+body.dark .activity-data::-webkit-scrollbar-thumb:hover{
+    background: #515253;
+}
