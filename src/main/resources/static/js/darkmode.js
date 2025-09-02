@@ -15,14 +15,24 @@ const modeText = document.getElementById('modeword');
 let getMode = localStorage.getItem("mode");
 if (getMode && getMode === "dark") {
     body.classList.toggle("dark");
+<<<<<<< HEAD
     logoDOM.src = "./img/DarkModeLogo.png";
     logoDOMmobi.src = "./img/SmallLogoDark.png";
+=======
+    logoDOM.src = "/img/DarkModeLogo.png";
+    logoDOMmobi.src = "/img/SmallLogoDark.png";
+>>>>>>> origin/feature/윤윤
     darkModeIcon.classList.add("hidden");
     lightModeIcon.classList.remove("hidden");
     modeText.innerHTML = "라이트모드";
 } else {
+<<<<<<< HEAD
     logoDOM.src = "./img/LightModeLogo.png";
     logoDOMmobi.src = "./img/SmallLogolight.png";
+=======
+    logoDOM.src = "/img/LightModeLogo.png";
+    logoDOMmobi.src = "/img/SmallLogolight.png";
+>>>>>>> origin/feature/윤윤
     darkModeIcon.classList.remove("hidden");
     lightModeIcon.classList.add("hidden");
     modeText.innerHTML = "다크모드";
@@ -46,15 +56,25 @@ function changeMode(){
     body.classList.toggle("dark");
     if (body.classList.contains("dark")) {
         localStorage.setItem("mode", "dark");
+<<<<<<< HEAD
         logoDOM.src = "./img/DarkModeLogo.png";
         logoDOMmobi.src = "./img/SmallLogoDark.png";
+=======
+        logoDOM.src = "/img/DarkModeLogo.png";
+        logoDOMmobi.src = "/img/SmallLogoDark.png";
+>>>>>>> origin/feature/윤윤
         darkModeIcon.classList.add("hidden");
         lightModeIcon.classList.remove("hidden");
         modeText.innerHTML = "라이트모드";
     } else {
         localStorage.setItem("mode", "light");
+<<<<<<< HEAD
         logoDOM.src = "./img/LightModeLogo.png";
         logoDOMmobi.src = "./img/SmallLogolight.png";
+=======
+        logoDOM.src = "/img/LightModeLogo.png";
+        logoDOMmobi.src = "/img/SmallLogolight.png";
+>>>>>>> origin/feature/윤윤
         darkModeIcon.classList.remove("hidden");
         lightModeIcon.classList.add("hidden");
         modeText.innerHTML = "다크모드";
@@ -89,7 +109,11 @@ sidebarToggle.addEventListener("click", () => {
         homeIcon.classList.remove("small-mode");
         logoDOM.classList.remove("small");
     }
+<<<<<<< HEAD
 })
 
 
 
+=======
+})
+>>>>>>> origin/feature/윤윤

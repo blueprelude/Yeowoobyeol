@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+* { box-sizing : border-box; padding:0;	margin:0; }
+
+#header { border:1px soild gray; background-color:black; width:100%; }
+#header a { text-align:left; vertical-align:middle; color:gray; font-weight:bold; }
+
+#search { padding: 20px; background-color:white; text-align:center; vertical-align:bottom; }
+#search input[type="text"] { width:500px; height:20px; text-align:left; font-size:20px; }
+#search input[type="button"] { width:70px; height:44px; font-size:17px; }
+
+#best { margin:0 auto; padding-top: 20px; background-color:white; width:80%; }
+#best #icon1 { width:20px; }
+#best table { border-collapse: collapse; width:100%;	}
+#best table tr:nth-of-type(1) { border-bottom:5px solid skyblue; }
+#best table tr { height:50px; border-bottom:1px solid skyblue; }
+#best table td:nth-of-type(1) { width:15%; text-align:center; }
+#best table td:nth-of-type(2) { width:45%; text-align:left; }
+#best table td:nth-of-type(3) { width:15%; text-align:center; }
+#best table td:nth-of-type(4) { width:15%; text-align:center; }
+
+#new { margin:0 auto; padding-top: 20px; background-color:white; width:80%; }
+#new table { border:1px solid white; width:100%;	}
+#new #icon2 { width:20px; }
+#new table td { text-align:center }
+#new img { width:200px; }

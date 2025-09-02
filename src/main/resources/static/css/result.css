@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-
-
-
-/* ARE YOU HAPPY NOW? */
-body{
-    background-color: var(--panel-color);
-}
-
-
-
-
-=======
->>>>>>> origin/feature/윤윤
 /* ===== nav ===== */
 nav{
     position: fixed;
@@ -180,19 +166,12 @@ i.search-box {
     color: var(--black-light-color);
     cursor: pointer;
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/feature/윤윤
 /* === 테이블 위 제목 === */
 .title{
     display: flex;
     align-items: center;
-<<<<<<< HEAD
-    margin: 20px 0 10px 0;
-=======
     margin: 60px 0 30px 0;
->>>>>>> origin/feature/윤윤
     padding: 5px;
     color: var(--text-color);
 }
@@ -202,21 +181,21 @@ i.search-box {
     
 }
 /* === 테이블 CSS === */
-.activity-table {
+.result-table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-.activity-table td, .activity-table th {
+.result-table td, .result-table th {
     padding: 18px;
 }
-.activity-table th {
+.result-table th {
     font-size: 22px;
     font-weight: bold;
     color: var(--text-color);
     text-align: center;
     vertical-align: top;
 }
-.activity-table td {
+.result-table td {
     font-size: 18px;
     font-weight: 400;
     margin-top: 20px;
@@ -224,67 +203,33 @@ i.search-box {
     margin: 0 15px;
     color: var(--text-color);
 }
-.activity-table tbody tr:hover {
+.result-table tbody tr:hover {
     background-color: var(--color3);
 }
-.activity-table tbody tr:active {
+.result-table tbody tr:active {
     background-color: var(--color2);
 }
-.activity-table .table-data {
+.result-table .table-data {
     text-align: left;
     vertical-align: top;
 }
-.activity-table .table-link {
-    text-decoration: none;
-    color: var(--text-color);
-}
 
-/* === 도서, 사용자 상세 폼 === */
-<<<<<<< HEAD
-=======
-.form .elem-container td{
-    padding: 10px;
-}
->>>>>>> origin/feature/윤윤
-.form .input-bar {
-    border: none;
-    background-color: lightgray;
-	padding: 12px 15px;
-	margin: 5px 0;
-	width: 300px;
-    
-    font-size: 16px;
-}
-.form .labelname {
-    color: var(--text-color);
-    font-weight: 700;
-    font-size: 18px;
-    margin-right: 20px;
-}
-.form .data{
-    color: var(--text-color);
-} 
-
-/* 버튼 */
-.activity .action-btn {
-  background-color: var(--primary-color);
+/* 대여하기 버튼 */
+.result-table .rent-btn {
+  background-color: var(--primary-color); /* Green */
   border: none;
   color: white;
-  padding: 10px 20px;
-  margin-left: 10px;
+  padding: 10px 25px;
   
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 15px;
-
+  font-size: 16px;
+}
+.result-table .rent-btn:hover {
   cursor: pointer;
 }
-<<<<<<< HEAD
-nav-links
-=======
 
->>>>>>> origin/feature/윤윤
 /* 다크모드 아이콘 */
 .switch-icon {
     width: 30px;
@@ -322,14 +267,6 @@ footer {
     height: 300px;
 }
 
-<<<<<<< HEAD
-.activity {
-    padding-bottom: 25px;
-}
-
-
-=======
->>>>>>> origin/feature/윤윤
 /* ============== 반응형 ============== */
 @media (min-width: 781px) and (max-width: 1500px) {
     nav{
@@ -473,51 +410,4 @@ footer {
     #house {
         display: flex;
     }
-<<<<<<< HEAD
 }
-=======
-}
-
-/*--페이징--*/
-.returnPaging{display: flex;
-  justify-content: center; /* 수평 가운데 정렬 */
-  align-items: center;    /* 수직 가운데 정렬 */
-  height: 10vh;} /* 위아래 높이 조절 */
-  
-.rentalPaging{display:flex; justify-content:center; align-items:center; height:10vh;}
-
-.listPaging{display:flex; justify-content:center; align-items:center; height:10vh;}
-
-#page{font-size : 20px; }
-#page td{padding : 20px; }
-#page a{text-decoration: none; color: #7BDFF2;}
-#page a:hover{color : #EFF7F6;}
-
-#page td.active {
-    color: #fff; /* 글자색을 흰색으로 */
-    font-weight: bold; /* 글자를 굵게 */
-}
-
-
-#page td.active a {
-    color: red; /* 현재 페이지 링크의 글자색을 흰색으로 */
-}
-
-
-/* === 관리자 페이지 페이징 관련 === */
-.adminpaging{
-	display:flex; 
-	justify-content:center; 
-	align-items:left; 
-	height:10vh; 
-	/* width: calc(100% - 73px); */
-}
-#adminpage{font-size : 20px; }
-#adminpage td{padding : 20px; }
-#adminpage{
-	--adminpage-text-color :#408080;
-}
-
-#adminpage a{text-decoration: none; color: var(--text-color);}
-#adminpage a:hover{color : var(--adminpage-text-color);}
->>>>>>> origin/feature/윤윤

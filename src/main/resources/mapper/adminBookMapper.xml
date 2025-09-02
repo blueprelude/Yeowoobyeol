@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.admin.mapper.AdminBookMapper">  
+ 
+	<select id="getBookList" resultType="com.fox.admin.domain.AdminBookDTO">
+		SELECT ROWNUM, YBI_IDX, YBI_SUBJECT, YBI_PUBLI, YBI_NAME, YBI_RENTAL, YBI_INDATE, YBI_DEL
+		FROM(
+			SELECT
+			    YBI_IDX,
+			    CASE WHEN LENGTH(YBI_SUBJECT) >= 10 THEN CONCAT( SUBSTR(YBI_SUBJECT,0,10) ,'....') ELSE YBI_SUBJECT END YBI_SUBJECT,
+			    YBI_PUBLI,
+			    YBI_NAME,
+			    DECODE(YBI_RENTAL,'N','대여가능','Y','대여중') YBI_RENTAL,
+			    TO_CHAR(YBI_INDATE,'YYYY-MM-DD') YBI_INDATE,
+			    DECODE(YBI_DEL,'N','보유중','Y','삭제') YBI_DEL
+			FROM YB_BOOK_INFO
+			ORDER BY YBI_IDX DESC
+		) OFFSET #{param2.offset} ROWS FETCH NEXT #{param2.recordSize} ROWS ONLY
+	</select>
+	
+	<select id="getBookData" resultType="com.fox.admin.domain.AdminBookDTO">
+		SELECT
+		    YBI_IDX,
+		    YBI_SUBJECT,
+		    YBI_PUBLI,
+		    YBI_NAME,
+		    DECODE(YBI_RENTAL,'N','대여가능','Y','대여중') YBI_RENTAL,
+		    TO_CHAR(YBI_INDATE,'YYYY-MM-DD') YBI_INDATE,
+		    DECODE(YBI_DEL,'N','보유중','Y','삭제') YBI_DEL
+		FROM YB_BOOK_INFO
+		where YBI_IDX = #{ ybi_idx }
+	</select>
+	
+	<update id="bookUpdate">
+		UPDATE YB_BOOK_INFO SET YBI_SUBJECT=#{ ybi_subject }, YBI_PUBLI=#{ ybi_publi }, YBI_NAME=#{ ybi_name }, YBI_DEL=#{ ybi_del }
+		WHERE YBI_IDX=#{ ybi_idx } 
+	</update>
+	
+	
+	<update id="bookInsert">
+		INSERT INTO YB_BOOK_INFO VALUES (
+			( SELECT NVL(MAX(YBI_IDX),0)+1 FROM YB_BOOK_INFO),
+			#{ ybi_subject },#{ ybi_publi},#{ ybi_name },'N',SYSDATE,'N') 
+	</update>
+	
+	<select id="getBookSearch" resultType="com.fox.admin.domain.AdminBookDTO">
+		SELECT ROWNUM, YBI_IDX, YBI_SUBJECT, YBI_PUBLI, YBI_NAME, YBI_RENTAL, YBI_INDATE, YBI_DEL 
+		FROM(
+			SELECT
+			    YBI_IDX,
+			    CASE WHEN LENGTH(YBI_SUBJECT) >= 10 THEN CONCAT( SUBSTR(YBI_SUBJECT,0,10) ,'....') ELSE YBI_SUBJECT END YBI_SUBJECT,
+			    YBI_PUBLI,
+			    YBI_NAME,
+			    DECODE(YBI_RENTAL,'N','대여가능','Y','대여중') YBI_RENTAL,
+			    TO_CHAR(YBI_INDATE,'YYYY-MM-DD') YBI_INDATE,
+			    DECODE(YBI_DEL,'N','보유중','Y','삭제') YBI_DEL
+			FROM YB_BOOK_INFO
+			${ param2 }
+			ORDER by YBI_IDX desc
+		) OFFSET #{param3.offset} ROWS FETCH NEXT #{param3.recordSize} ROWS ONLY   
+	</select>
+	
+	<select id="getBookRTList" resultType="com.fox.admin.domain.AdminUserBookDTO">
+		SELECT ROWNUM, YBI_PUBLI, YBI_SUBJECT, YBI_NAME, YRI_RTDATE, YU_USERID, YU_USERNAME
+		FROM (
+			SELECT 
+				YBI.YBI_PUBLI, 
+				CASE WHEN LENGTH(YBI.YBI_SUBJECT) >= 10 THEN CONCAT( SUBSTR(YBI.YBI_SUBJECT,0,10) ,'....') ELSE YBI.YBI_SUBJECT END YBI_SUBJECT, 
+				YBI.YBI_NAME, TO_CHAR(YRI.YRI_RTDATE,'YYYY-MM-DD') YRI_RTDATE, 
+				YRI.YU_USERID, YU.YU_USERNAME, 
+				ROWNUM
+			FROM YB_BOOK_INFO YBI, YB_RENTAL_INFO YRI, YB_USER YU
+			WHERE YBI.YBI_IDX = YRI.YBI_IDX and YU.YU_USERID = YRI.YU_USERID
+			AND YRI.YRI_REDATE IS NULL
+			ORDER BY YRI.YRI_RTDATE DESC
+		) WHERE ROWNUM BETWEEN 1 AND 5
+	</select>
+	
+	<select id="getBookREList" resultType="com.fox.admin.domain.AdminUserBookDTO">
+		SELECT ROWNUM, YBI_PUBLI, YBI_SUBJECT, YBI_NAME, YRI_RTDATE, YRI_REDATE
+		FROM (
+			SELECT 
+				YBI.YBI_PUBLI, 
+				CASE WHEN LENGTH(YBI_SUBJECT) >= 10 THEN CONCAT( SUBSTR(YBI_SUBJECT,0,10) ,'....') ELSE YBI_SUBJECT END YBI_SUBJECT, 
+				YBI.YBI_NAME, 
+				TO_CHAR(YRI.YRI_RTDATE,'YYYY-MM-DD') YRI_RTDATE, 
+				TO_CHAR(YRI.YRI_REDATE,'YYYY-MM-DD') YRI_REDATE,
+				YRI.YU_USERID, 
+				ROWNUM
+			from YB_BOOK_INFO YBI, YB_RENTAL_INFO YRI
+			WHERE YBI.YBI_IDX = YRI.YBI_IDX 
+			  AND YRI.YRI_REDATE IS NOT NULL
+			ORDER BY YRI.YRI_RTDATE DESC
+		) WHERE ROWNUM BETWEEN 1 AND 5
+	</select>
+	
+	<select id="count">
+		SELECT 
+			COUNT(*) cnt 
+		FROM YB_BOOK_INFO
+		${param2}
+	</select>
+	
+</mapper>
