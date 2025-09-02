@@ -1,7 +1,16 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/feature/은채
 pluginManagement {
 	repositories {
 		maven { url = 'https://repo.spring.io/snapshot' }
 		gradlePluginPortal()
 	}
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/feature/은채
 rootProject.name = 'Yeowoobyeol'
+

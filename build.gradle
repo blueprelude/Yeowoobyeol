@@ -1,12 +1,19 @@
 plugins {
 	id 'java'
 	id 'war'
+
 	id 'org.springframework.boot' version '3.5.5'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'com.fox'
 version = '0.0.1-SNAPSHOT'
+<<<<<<< HEAD
+=======
+
+description = 'Demo project for Spring Boot'
+>>>>>>> origin/feature/은채
+
 
 java {
 	toolchain {
@@ -22,7 +29,14 @@ configurations {
 
 repositories {
 	mavenCentral()
+<<<<<<< HEAD
 	maven { url = 'https://repo.spring.io/snapshot' }
+=======
+
+	maven { url = 'https://repo.spring.io/snapshot' }
+
+
+>>>>>>> origin/feature/은채
 }
 
 dependencies {
@@ -36,6 +50,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+<<<<<<< HEAD
 	
 	// JSP + JSTL 설정 (Spring Boot 3.x, JDK 17 이상)
 	// 수동으로 하는 이유는 검색이 되지 않아서....
@@ -43,6 +58,17 @@ dependencies {
  	implementation 'jakarta.servlet:jakarta.servlet-api'
  	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
  	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+=======
+
+	
+	 // JSP  JSTL 설정  (Spring Boot 3.x, JDK 17이상)
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    implementation 'jakarta.servlet:jakarta.servlet-api'
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+
+
+>>>>>>> origin/feature/은채
 }
 
 tasks.named('test') {

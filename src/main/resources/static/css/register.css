@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+  	margin: 0px;
+  	padding: 0px;
+  	text-decoration: none;
+  	font-family: 'GangwonEdu_OTFBoldA';
+}
+
+.logo {
+	display: block;
+	margin: 80px auto;
+	width: 110px;
+}
+
+body {
+  	background-image:#34495e;
+}
+
+.joinForm {
+  	position:absolute;
+  	width:400px;
+  	height:400px;
+  	padding: 30px, 20px;
+  	background-color:#FFFFFF;
+  	text-align:center;
+  	top:40%;
+  	left:50%;
+  	transform: translate(-50%,-50%);
+  	border-radius: 15px;
+}
+
+.textForm {
+	display:flex;
+  	border-bottom: 2px solid #adadad;
+  	margin: 30px;
+ 	padding: 10px 10px;
+}
+
+.id {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:20px;
+  height:25px;
+  background: none;
+}
+
+.textForm input[type="button"] {
+	width:80px;
+	font-size: 15px;
+}
+
+.pw {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:20px;
+  height:25px;
+  background: none;
+}
+
+.name {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:20px;
+  height:25px;
+  background: none;
+}
+
+.bday {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:20px;
+  height:25px;
+  background: none;
+}
+
+.email {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:20px;
+  height:25px;
+  background: none;
+}
+
+.phone {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:20px;
+  height:25px;
+  background: none;
+}
+
+.btn {
+  position:block;
+  margin: 40px;
+  width:320px;
+  height:40px;
+  background: #636e72;
+  background-size: 200%;
+  color:white;
+  font-size: 20px;
+  font-weight: bold;
+  border:none;
+  cursor:pointer;
+  transition: 0.4s;
+  display:inline;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background: black;
+}
