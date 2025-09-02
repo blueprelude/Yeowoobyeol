@@ -15,7 +15,7 @@
 			    DECODE(YBI_DEL,'N','보유중','Y','삭제') YBI_DEL
 			FROM YB_BOOK_INFO
 			ORDER BY YBI_IDX DESC
-		) OFFSET #{params.offset} ROWS FETCH NEXT #{params.recordSize} ROWS ONLY
+		) OFFSET #{param2.offset} ROWS FETCH NEXT #{param2.recordSize} ROWS ONLY
 	</select>
 	
 	<select id="getBookData" resultType="com.fox.admin.domain.AdminBookDTO">
@@ -57,7 +57,7 @@
 			FROM YB_BOOK_INFO
 			${ param2 }
 			ORDER by YBI_IDX desc
-		) OFFSET #{params.offset} ROWS FETCH NEXT #{params.recordSize} ROWS ONLY   
+		) OFFSET #{param3.offset} ROWS FETCH NEXT #{param3.recordSize} ROWS ONLY   
 	</select>
 	
 	<select id="getBookRTList" resultType="com.fox.admin.domain.AdminUserBookDTO">

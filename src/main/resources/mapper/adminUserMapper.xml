@@ -20,7 +20,7 @@
 			FROM YB_USER
 			WHERE YU_AUTH != 'S'
 			ORDER BY YU_INDATE DESC
-		) OFFSET #{params.offset} ROWS FETCH NEXT #{params.recordSize} ROWS ONLY
+		) OFFSET #{param2.offset} ROWS FETCH NEXT #{param2.recordSize} ROWS ONLY
 	</select>
 	
 	<select id="getUserData" resultType="com.fox.admin.domain.AdminUserDTO">
@@ -91,7 +91,7 @@
 			WHERE YU_AUTH != 'S'
 			${param2}
 			ORDER BY YU_INDATE DESC
-		) OFFSET #{params.offset} ROWS FETCH NEXT #{params.recordSize} ROWS ONLY
+		) OFFSET #{param3.offset} ROWS FETCH NEXT #{param3.recordSize} ROWS ONLY
 	</select>
 	
 	<select id="getUserBookListSearch" resultType="com.fox.admin.domain.AdminUserBookDTO">
