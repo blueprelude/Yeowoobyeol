@@ -17,6 +17,7 @@ import com.fox.bookuser.mapper.UserMapper;
 import com.fox.paging.domain.Pagination;
 import com.fox.paging.domain.SearchDTO;
 import com.fox.paging.mapper.PagingMapper;
+import com.fox.users.domain.UserInfoDTO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -36,30 +37,7 @@ public class userController {
 	@Autowired
 	private RentalMapper rentalMapper;
 	
-	@RequestMapping("/LoginForm")
-	public String loginForm() {
-		return "login_sample";
-	}
 	
-	
-	@RequestMapping("/login")
-	public String login(userDTO userDTO, HttpSession session, Model model) {
-		userDTO user = userMapper.getUser(userDTO);
-		if(user != null && user.getYu_passwd().equals(userDTO.getYu_passwd())) {
-			session.setAttribute("login_id", user.getYu_userid());
-			return "index";
-		}else{
-		model.addAttribute("error","아이디 또는 패스워드가 틀립니다.");	
-		return "redirect:/LoginForm"; // home.jsp 로 포워딩
-		}
-	}
-	
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		//세션 해제
-		session.invalidate();
-		return "redirect:/";
-	}
 	
 	@RequestMapping("/userInfo")
 	public String userInfo() {
@@ -69,12 +47,16 @@ public class userController {
 	//대여내역 리스트
 	@RequestMapping("/RentalList")
 	public String rentalList(SearchDTO params, HttpSession session ,  Model model) {
-		String yu_userid = (String) session.getAttribute("login_id");
+		/* String yu_userid = (String) session.getAttribute("login"); */
 		
-		if(yu_userid == null) {
-			model.addAttribute("loginError" , "로그인이 필요한 서비스입니다.");
-			return "login_sample";
-		}
+		UserInfoDTO userDto = (UserInfoDTO) session.getAttribute("login");
+		String yu_userid = userDto.getYu_userid();
+		
+		System.out.println(yu_userid);
+		/*
+		 * if(yu_userid == null) { model.addAttribute("loginError" ,
+		 * "로그인이 필요한 서비스입니다."); return "/login"; }else {
+		 */
 		
 		//리스트 가져오기
 		List<rentalDTO> rentalList = booklistMapper.rentalList(params, yu_userid);
@@ -112,16 +94,21 @@ public class userController {
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("yu_userid", yu_userid);
 		return "rentalList";
-	}
+		}
+		
+		
 	
 	//반납내역 리스트
 	@RequestMapping("/ReturnList")
 	public String returnList(SearchDTO params, HttpSession session , Model model) {
-		String yu_userid = (String) session.getAttribute("login_id");
+		UserInfoDTO userDto = (UserInfoDTO) session.getAttribute("login");
+		String yu_userid = userDto.getYu_userid();
+		
+		System.out.println(yu_userid);
 		
 		if(yu_userid == null) {
 			model.addAttribute("loginError", "로그인이 필요한 서비스입니다.");
-			return "login_sample";
+			return "/LoginForm";
 		}
 		
 		

@@ -106,7 +106,6 @@
 			<table class="activity-table">
 				<thead>
 					<tr>
-						<th class="table-title"></th>
 						<th class="table-title">번호</th>
 						<th class="table-title">제목</th>
 						<th class="table-title">저자</th>

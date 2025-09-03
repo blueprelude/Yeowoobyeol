@@ -43,28 +43,24 @@
             <span class="link-name">홈으로</span>
           </a>
         </li>
-        <li>
-          <c:if test="${sessionScope.login_id ne null and sessionScope.login_id eq 'admin'}"> 
-	          <a href="/BookList?searchType=">
-	            <i class="fa-solid fa-book"></i>
-	            <span class="link-name">관리자 도서 목록</span>
-	          </a>
-       	  </c:if>
-          <c:if test="${sessionScope.login_id ne null and sessionScope.login_id ne 'admin'}"> 
-	          <a href="/BookList?searchType=">
-	            <i class="fa-solid fa-book"></i>
-	            <span class="link-name">도서 목록</span>
-	          </a>
-       	  </c:if>  
-        </li>
-        <c:if test="${sessionScope.login_id ne null and sessionScope.login_id ne 'admin'}">   
+        
+        <c:if test="${sessionScope.login.yu_userid ne null and sessionScope.login.yu_userid ne 'admin'}">  
+        
+       			  <c:if test = "${sessionScope.login.yu_userid ne null and sessionScope.login.yu_userid ne 'admin'}">
+				        <li>
+				          <a href = "/Userlist">
+				             <i class="fa-solid fa-users"></i>
+				             <span class="link-name">${sessionScope.login.yu_username}</span>
+				          </a>
+				        </li>
+			  	  </c:if>
+		  
 			        <li> 
 			          <a href="/RentalList">
 			            <i class="fa-solid fa-book"></i>
 			            <span class="link-name">대여 내역</span>
 			          </a>
 			        </li>
-			        
 			        <li>
 			          <a href="/ReturnList">
 			            <i class="fa-solid fa-book"></i>
@@ -73,23 +69,9 @@
 			        </li>
 		      </c:if> 
 		      
-		     <c:if test="${sessionScope.login_id ne null and sessionScope.login_id eq 'admin'}">   
-			        <li>
-			          <a href="/RentalList">
-			            <i class="fa-solid fa-book"></i>
-			            <span class="link-name">관리자 대여 내역</span>
-			          </a>
-			        </li>
-			        
-			        <li>
-			          <a href="/ReturnList">
-			            <i class="fa-solid fa-book"></i>
-			            <span class="link-name">관리자 반납 내역</span>
-			          </a>
-			        </li>
-		      </c:if>
+		
 		      
-		       <c:if test="${sessionScope.login_id ne null and sessionScope.login_id eq 'admin'}">
+		       <c:if test="${sessionScope.login.yu_userid ne null and sessionScope.login.yu_userid eq 'admin'}">
 			        <li>
 			          <a href="/adminPage">
 			            <i class="fa-solid fa-book"></i>
@@ -100,33 +82,15 @@
       </ul>
       <!-- === 로그아웃 / 다크모드 스위치 === -->
        <ul class="logout-mode">
-					 <c:if test = "${sessionScope.login_id ne null and sessionScope.login_id eq 'admin'}">
+					 <c:if test = "${sessionScope.login.yu_userid ne null and sessionScope.login.yu_userid eq 'admin'}">
 				        <li>
 				          <a>
 				             <i class="fa-solid fa-users"></i>
-				             <span class="link-name">${sessionScope.login_id} 관리자</span>
+				             <span class="link-name">${sessionScope.login.yu_userid} 관리자</span>
 				          </a>
 				        </li>
 					  </c:if>
 					  
-					  <c:if test = "${sessionScope.login_id ne null and sessionScope.login_id ne 'admin'}">
-				        <li>
-				          <a>
-				             <i class="fa-solid fa-users"></i>
-				             <span class="link-name">${sessionScope.login_id}님</span>
-				          </a>
-				        </li>
-				  	  </c:if>
-			  
-		        <c:if test = "${sessionScope.login_id ne null and sessionScope.longin_id ne 'admin'}">
-			        <li>
-			          <a href="/userInfo">
-			            <i class="fa-solid fa-users"></i>
-			            <span class="link-name">내 정보 수정</span>
-			          </a>
-			        </li>
-	       	 	</c:if>
-	       	 	
 			        <li>
 			          <a href="/logout">
 			            <i class="fa-solid fa-arrow-right-from-bracket"></i>
@@ -155,7 +119,7 @@
 			    </ul>
 	   
 	   
-	<c:if test = "${sessionScope.login_id == null}">   
+	<c:if test = "${sessionScope.login.yu_userid == null}">   
 	    <ul class="logout-mode">
 		        <li>
 		          <a href="/LoginForm">

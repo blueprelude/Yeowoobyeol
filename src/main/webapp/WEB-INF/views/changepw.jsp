@@ -21,10 +21,10 @@
  -->
 </head>
 <body>
-  <a href="/Libb/Home"><img src="/img/LightModeLogo.png" alt="여우별" class="logo"></a>
+  <a href="/"><img src="/img/LightModeLogo.png" alt="여우별" class="logo"></a>
 <main class="update-container">
   <h2>비밀번호 변경</h2>
-  <form action="/Libb/ChangePw" method="POST" class="change-form">
+  <form action="/ChangePw" method="POST" class="change-form">
     <div class="form-group">
       <label for="pw1">현재 비밀번호</label>
       <input name="pw1" type="password" id="pw1">
@@ -38,7 +38,7 @@
       <input type="password" id="pw3">
     </div>
     <div class="button-group">
-      <a href="/Libb/List" class="cancel-btn">취소</a>
+      <a href="/Userlist" class="cancel-btn">취소</a>
   	  <button type="submit" class="update-btn" >수정</button>
 	</div>
   </form>

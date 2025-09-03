@@ -21,11 +21,6 @@
     font-family: 'GangwonEdu_OTFBoldA', sans-serif;
 }
 
-<<<<<<< HEAD
-
-/*라이트  */
-=======
->>>>>>> origin/feature/윤윤
 :root{
     /* ====== 색 ====== */
     --primary-color: #003049;
@@ -34,18 +29,12 @@
     --black-light-color: #707070;
     --border-color: #e6e5e5;
     --toggle-color: #DDD;
-<<<<<<< HEAD
-    --box1-color: #7BDFF2;
-    --box2-color: #B2F7EF;
-    --box3-color: #EFF7F6;
-    --rent-button: #003049;
-    --scrollbar : #003049;
-=======
     --color1: #7BDFF2;
     --color2: #B2F7EF;
     --color3: #EFF7F6;
+    --color4: #EFF7F6;
+    --rental-color: #003049;
     
->>>>>>> origin/feature/윤윤
     /* ====== Transition ====== */
     --tran-05: all 0.5s ease;
     --tran-03: all 0.3s ease;
@@ -54,32 +43,22 @@
 
 body{
     min-height: 100vh;
-<<<<<<< HEAD
-=======
     background-color: var(--panel-color);
->>>>>>> origin/feature/윤윤
 }
 
 /* ===== 다크모드 전환 시 색 ===== */
 body.dark{
-<<<<<<< HEAD
     --primary-color: #B7E5FE;
-=======
-    --primary-color: #3A3B3C;
->>>>>>> origin/feature/윤윤
     --panel-color: #242526;
     --text-color: #CCC;
     --black-light-color: #CCC;
-    --border-color: #4D4C4C;
     --toggle-color: #FFF;
-    --box1-color: #3A3B3C;
-    --box2-color: #3A3B3C;
-    --box3-color: #3A3B3C;
-<<<<<<< HEAD
-    --rent-button:#3A3B3C;
-    --scrollbar : #3A3B3C;
-=======
->>>>>>> origin/feature/윤윤
+    --border-color: #4D4C4C;
+    --color1: #7BDFF2;
+    --color2: #B2F7EF;
+    --color3: #EFF7F6;
+    --color4: #626060;
+    --rental-color: #4D4C4C;
 }
 
 /* === 커스텀 스크롤바 CSS === */
@@ -91,11 +70,7 @@ body.dark{
     border-radius: 20px;
 }
 ::-webkit-scrollbar-thumb {
-<<<<<<< HEAD
-    background: var(--scrollbar);
-=======
     background: var(--primary-color);
->>>>>>> origin/feature/윤윤
     border-radius: 12px;
     transition: all 0.3s ease;
 }
@@ -109,11 +84,8 @@ body.dark::-webkit-scrollbar-track {
 body.dark::-webkit-scrollbar-thumb:hover,
 body.dark .activity-data::-webkit-scrollbar-thumb:hover{
     background: #515253;
-<<<<<<< HEAD
-=======
 }
 
 a {
     text-decoration: none;
->>>>>>> origin/feature/윤윤
 }

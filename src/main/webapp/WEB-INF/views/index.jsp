@@ -39,18 +39,20 @@
 			
 			<div class="menu-subbind">
 				<div id="nav-menu">
-		           		<c:if test="${sessionScope.login_id == null}">
+		           		<c:if test="${sessionScope.login.yu_userid == null}">
 							<a href="/LoginForm">로그인</a>
-							<a href="/join">회원가입</a>
+							<a href="/WriteForm">회원가입</a>
 						</c:if>
-						<c:if test="${sessionScope.login_id ne null and sessionScope.login_id ne 'admin'}">
-							<a class = "nohover">${sessionScope.login_id}님 반갑습니다!</a>
-							<a href="/RentalList">내 정보</a>
+						
+						<c:if test="${sessionScope.login.yu_userid ne null and sessionScope.login.yu_userid eq 'admin'}">
+							<a class = "nohover">${sessionScope.login.yu_username}님</a>
+							<a href="/adminPage">관리페이지</a>
 							<a href="/logout"  onclick="return confirm('로그아웃 하시겠습니까?');">로그아웃</a>
 						</c:if>
-		                <c:if test="${sessionScope.login_id ne null and sessionScope.login_id eq 'admin'}">
-							<a class = "nohover">${sessionScope.login_id} [관리자]</a>
-							<a href="/RentalList">관리자 메뉴</a>
+						
+						<c:if test="${sessionScope.login.yu_userid ne null and sessionScope.login.yu_userid ne 'admin'}">
+							<a class = "nohover">${sessionScope.login.yu_username}님 반갑습니다!</a>
+							<a href="RentalList">마이페이지</a>
 							<a href="/logout"  onclick="return confirm('로그아웃 하시겠습니까?');">로그아웃</a>
 						</c:if>
 			       <div class="mode">
@@ -82,10 +84,10 @@
 		<!--메인글,검색창 -->
         <div class="main-container">
             <h1 id="mainread">잠시 쉬어가는 지식의 요람</h1>
-            <h3 id="mainread2">안녕하세요 여우별 도서관 입니다.</h3>
-            <div class="search-container">
+            <h3 id="mainread2">안녕하세요, 여우별 도서관 입니다.</h3>
+            <div class="search-container">	
 				<form class="search-box" action="/BookList" method="get" onsubmit = "return eq()">
-					<input type="hidden" name="searchType" value="bookName">
+					<input type="hidden" name="searchType" value="searchBookName">
 					<input class="search-txt" type="text" name="keyword" placeholder="도서명을 입력해주세요.">
 					<button class="search-btn" type="submit">
 						<i class="fa-solid fa-magnifying-glass fa-xl"></i>
@@ -93,10 +95,10 @@
 				</form>
 				<div class="vertical-slider">
                     <div class="slider-content">
-                        <div class="menu-item"><a href="/BookList?keyword=행복한 가족을 만드는 가족생활백서"><i class="fa-solid fa-book"></i>추천도서&lt;행복한 가족을 만드는 가족생활백서&gt; 방규원</a></div>
-                        <div class="menu-item"><a href="/BookList?keyword=훌쩍 커버린 15세, 이제 부모가 말을 걸 차례다"><i class="fa-solid fa-book"></i>추천도서&lt;훌쩍 커버린 15세, 이제 부모가 말을 걸 차례다&gt; 손석한</a></div>
-                        <div class="menu-item"><a href="/BookList?keyword=지리산 둘레길, 사람과 풍경이 만나는 곳"><i class="fa-solid fa-book"></i>추천도서&lt;지리산 둘레길, 사람과 풍경이 만나는 곳&gt; 이송이</a></div>
-                        <div class="menu-item"><a href="/BookList?keyword=항산화제, 내 몸을 살린다"><i class="fa-solid fa-book"></i>추천도서&lt;항산화제, 내 몸을 살린다&gt; 정윤상</a></div>
+                        <div class="menu-item"><a href="/BookList?searchType=searchBookName&keyword=행복한 가족을 만드는 가족생활백서"><i class="fa-solid fa-book"></i>추천도서&lt;행복한 가족을 만드는 가족생활백서&gt; 방규원</a></div>
+                        <div class="menu-item"><a href="/BookList?searchType=searchBookName&keyword=훌쩍 커버린 15세, 이제 부모가 말을 걸 차례다"><i class="fa-solid fa-book"></i>추천도서&lt;훌쩍 커버린 15세, 이제 부모가 말을 걸 차례다&gt; 손석한</a></div>
+                        <div class="menu-item"><a href="/BookList?searchType=searchBookName&keyword=지리산 둘레길, 사람과 풍경이 만나는 곳"><i class="fa-solid fa-book"></i>추천도서&lt;지리산 둘레길, 사람과 풍경이 만나는 곳&gt; 이송이</a></div>
+                        <div class="menu-item"><a href="/BookList?searchType=searchBookName&keyword=항산화제, 내 몸을 살린다"><i class="fa-solid fa-book"></i>추천도서&lt;항산화제, 내 몸을 살린다&gt; 정윤상</a></div>
 					  </div>
                 </div>
             </div>
@@ -104,12 +106,40 @@
     <!--푸터 -->
 	<footer>
 		<div id="footer" class="footer">
-			<span>부산광역시 못골번영로56번길 8</span><br> <span>Copyright © 2025
-				FoxStar Library. All rights reserved.</span><br>
+			<span>Copyright © 2025 FoxStar Library. All rights reserved.</span><br>
 		</div>
 	</footer>
 	</div>
 
+
+	
+		<script>
+			    let errorMessage = "${errorMessage}";
+			    
+			    if (errorMessage !== "") {
+			        alert(errorMessage);
+			    }
+			</script>
+	
+		<script>
+			    let msg = "${msg}";
+			    
+			    if (msg) {
+			        alert(msg);
+			    }
+			</script>
+		  
+  
+  			
+  			<script>
+			    let errorMessageNum = "${errorMessageNum}";
+			    
+			    if (errorMessageNum !== "") {
+			        alert(errorMessageNum);
+			    }
+			</script>
+  
+	
 	<!--햄버거메뉴스크립트 -->
 	<script>
    		document.addEventListener('DOMContentLoaded', function() {

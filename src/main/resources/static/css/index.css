@@ -422,7 +422,7 @@ body {
        display: block;
        width: 30px;
        height: 3px;
-       background: #003049;
+       background-color: var(--primary-color);
        margin: 5px 0;
     
    }
@@ -430,7 +430,7 @@ body {
        display: block;
        width: 30px;
        height: 3px;
-       background: #7BDFF2;
+       background-color:var(--primary-color);
        margin: 5px 0;
     
    }
@@ -439,7 +439,7 @@ body {
        white-space: nowrap;
        display: flex;
        gap: 35px;
-        align-items: center;
+       align-items: center;
    }
 
 

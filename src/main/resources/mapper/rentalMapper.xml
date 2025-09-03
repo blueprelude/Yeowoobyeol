@@ -31,18 +31,18 @@
 	<!--하루 동안에 대여/반납 횟수-->
 	<select id="getTodaySameBookCount" >
 	    SELECT COUNT(*) FROM yb_rental_info
-	    WHERE yu_userid = #{userId}
+	    WHERE yu_userid = #{yu_userid}
 	    AND ybi_idx = #{ybi_idx}
 	    AND to_char(yri_rtdate, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
 	    AND to_char(yri_redate, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
 	</select>
 	
 	
-	<!--기간만료 삽입  day를 분으로 바꿔 비교-->
+	<!--기간만료 삽입  day를 초로 바꿔 비교-->
 	<select id = "calcReturnDays">
 		select to_char(yri_rtdate , 'YYYY-MM-DD HH24:MI:SS') as yri_rtdate, 
        	to_char(yri_redate , 'YYYY-MM-DD HH24:MI:SS') as yri_redate,
-		case when(yri_redate - yri_rtdate) * 24 * 60 >= 3 then '기간만료' 
+		case when(yri_redate - yri_rtdate) * 24 * 60 * 60 > 180 then '기간만료' 
 	    else '반납완료' end as comm,ybi_idx 
 	    from yb_rental_info
 	</select>

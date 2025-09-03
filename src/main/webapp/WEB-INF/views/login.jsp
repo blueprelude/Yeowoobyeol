@@ -19,8 +19,8 @@
 </head>
 <body>
 	<main>
-	  <a href="/Libb/Home"><img src="/img/LightModeLogo.png" alt="여우별" class="logo"></a>
-	  <form action="/Libb/Login" method="POST" class="joinForm">
+	  <a href="/"><img src="/img/LightModeLogo.png" alt="여우별" class="logo"></a>
+	  <form action="/Login" method="POST" class="joinForm">
 	  <div class="textForm">
         <input name="yu_userid" type="text" class="id" placeholder="아이디" maxlength="12" />
       </div>

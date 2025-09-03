@@ -35,7 +35,7 @@
                  YU_INDATE,
                  YU_AUTH
      FROM        YB_USER 
-     WHERE       YU_USERID =  #{ yu_userid } AND YU_PASSWD = #{ yu_passwd } AND YU_DEL = 'N'
+     WHERE       YU_USERID =  #{ param1 } AND YU_PASSWD = #{ param2 } AND YU_DEL = 'N'
   
   </select>
   
@@ -83,9 +83,10 @@
   	 WHERE	YU_USERID = #{yu_userid} AND YU_AUTH = 'N' AND YU_DEL = 'N'
   </update>
   
-  <delete  id="deleteUser">
-    DELETE	FROM	YB_USER
+  <update  id="deleteUser">
+    UPDATE 	YB_USER
+     SET	YU_DEL = 'Y', YU_OUTDATE = SYSDATE
      WHERE  YU_USERID  =  #{ yu_userid }
-  </delete>
+  </update>
 </mapper>
 

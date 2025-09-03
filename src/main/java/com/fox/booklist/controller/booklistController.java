@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fox.booklist.domain.booklistDTO;
 import com.fox.booklist.mapper.BooklistMapper;
 import com.fox.paging.domain.Pagination;
 import com.fox.paging.domain.SearchDTO;
 import com.fox.paging.mapper.PagingMapper;
+import com.fox.users.domain.UserInfoDTO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -36,18 +38,31 @@ public class booklistController {
 	
 	@RequestMapping("/adminPage")
 	public String adminPage() {
-		return "admin";
+		return "redirect:/Admin/AdminNewIngList";
 	}
 	
 	
 	
 	@GetMapping("/BookList")
-	//public String getBookList(@RequestParam("searchType") String searchType, SearchDTO params, HttpSession session, Model model) {
-	public String getBookList(@RequestParam("searchType") String searchType, SearchDTO params, HttpSession session, Model model) {
+	public String getBookList(@RequestParam("searchType") String searchType, UserInfoDTO  userDto ,
+			SearchDTO params, HttpSession session, Model model, RedirectAttributes re) {
 		
 		// 1. 세션에서 로그인 사용자 ID 가져오기
-		String yu_userid = (String) session.getAttribute("login_id");
+		/* String yu_userid = (String) session.getAttribute("login_id"); */
+		String yu_userid = null;
+		userDto = (UserInfoDTO) session.getAttribute("login");
+		 if (userDto != null) {
+		        // null이 아닐 때만 getYu_userid()를 호출
+		        yu_userid = userDto.getYu_userid();
+		    }
+		List<booklistDTO> bookList = booklistMapper.getBookList(params, yu_userid); // Mapper에 DTO와 ID를 함께 넘김
+	
+		if (params.getKeyword() != null && !params.getKeyword().trim().isEmpty() && bookList.isEmpty()) {
+		    re.addFlashAttribute("errorMessage", "해당하는 목록이 없습니다.");
+		    return "redirect:/BookList?searchType=";
+		}
 		
+			
 		// 2. 검색 조건에 맞는 전체 게시글 수 조회
 		int totalCount = pagingMapper.count(params, yu_userid);
 		
@@ -62,7 +77,6 @@ public class booklistController {
 			params.setPage(1);
 		}
 		// 4. 페이지네이션 정보와 사용자 ID, 검색 조건으로 목록 조회 (params : keyword)
-		List<booklistDTO> bookList = booklistMapper.getBookList(params, yu_userid); // Mapper에 DTO와 ID를 함께 넘김
 		
 			if(bookList.isEmpty()) {
 				//없다면 neResult로 넘겨줌
@@ -78,7 +92,7 @@ public class booklistController {
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("searchDTO", params);
 		model.addAttribute("bookList", bookList);
-		return "list";
+		return "booklist";
 	}
 }
 	

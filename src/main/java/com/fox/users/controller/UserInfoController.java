@@ -22,37 +22,31 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/Libb")
 public class UserInfoController {
-	
-	@GetMapping("/Home")
-	public String home() {
-		return "home";
-	}
 
 	@Autowired
 	private  UserInfoMapper  userinfoMapper;
 	
 	// /Users/List
-	@RequestMapping("/List")
+	@RequestMapping("/Userlist")
 	public  String  list( HttpSession session, HttpServletRequest request, Model model ) {
 		
 		UserInfoDTO loginUser = (UserInfoDTO) session.getAttribute("login");
 		if(loginUser == null) {
 			request.setAttribute("msg", "로그인이 필요한 페이지입니다.");
-			return "libb/login";
+			return "login";
 		}
 		
 		UserInfoDTO userinfo = userinfoMapper.getUser(loginUser);
 		model.addAttribute("userInfo", userinfo);
 		
-		return "libb/list";
+		return "userlist";
 	}
 
 	// /Users/WriteForm
 	@RequestMapping("/WriteForm")
 	public  String  writerForm() {		
-		return "libb/write";
+		return "write";
 	}
 	
 	// /Users/Write
@@ -63,7 +57,7 @@ public class UserInfoController {
 		
 		model.addAttribute("msg", "회원가입이 완료되었습니다.");
 		
-		return "libb/login";
+		return "login";
 	}
 	
 	
@@ -79,12 +73,12 @@ public class UserInfoController {
 		
 		redirectAttributes.addFlashAttribute("msg", "탈퇴처리가 완료되었습니다.");
 		
-		return "redirect:/Libb/Home";
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/ChangePwForm")
 	public  String  changePwForm() {		
-		return "libb/changepw";
+		return "changepw";
 	}
 
 	
@@ -103,7 +97,7 @@ public class UserInfoController {
 	    String dbPw = dbUser.getYu_passwd();
 	    if (!dbPw.equals(pw1)) {
 	        redirectAttributes.addFlashAttribute("msg", "현재 비밀번호가 틀립니다.");
-	        return "redirect:/Libb/ChangePwForm";
+	        return "redirect:/ChangePwForm";
 	    }
 
 	   
@@ -116,7 +110,7 @@ public class UserInfoController {
 	    
 	    redirectAttributes.addFlashAttribute("msg", "비밀번호가 변경되었습니다. 다시 로그인해 주세요.");
 
-	    return "redirect:/Libb/LoginForm";
+	    return "redirect:/LoginForm";
 	}
 	
 	
@@ -130,7 +124,7 @@ public class UserInfoController {
 		// 조회한 정보를 모델에 담는다
 	    model.addAttribute("user", user);
 		
-		return "libb/update";
+		return "update";
 	}
 	
 	// http://localhost:9090/Users/Update
@@ -140,7 +134,7 @@ public class UserInfoController {
 		userinfoMapper.updateUser( userinfoDTO );
 		redirectAttributes.addFlashAttribute("msg", "정보가 수정되었습니다.");
 		
-		return "redirect:/Libb/List";
+		return "redirect:/Userlist";
 	}
 	
 	//----------------------------------------
@@ -151,7 +145,7 @@ public class UserInfoController {
 	//  postMapping 사용 안됨
 	@RequestMapping("/LoginForm")
 	public  String  loginForm() { 	
-		return "libb/login";
+		return "login";
 	}	
 	
 	// /Users/Login  <- <form>
@@ -165,29 +159,27 @@ public class UserInfoController {
        String   yu_userid  =  request.getParameter("yu_userid");
        String   yu_passwd   =  request.getParameter("yu_passwd");
        
-       // db 조히
        UserInfoDTO  user  =  userinfoMapper.login(yu_userid, yu_passwd);
        
        if (user == null) {
            request.setAttribute("msg", "아이디 또는 비밀번호가 올바르지 않습니다.");
-           return "/libb/login"; 
+           return "login"; 
        }
 
-       //ㅈㄷㅎㅈ
        if ("N".equals(user.getYu_auth())) {
            userinfoMapper.reLogin(yu_userid);
            request.setAttribute("msg", "휴면이 해제되었습니다. 다시 로그인해 주세요.");
-           return "/libb/login";
+           return "login";
        }
          session.setAttribute("login", user);
          
          if ("S".equals(user.getYu_auth())) {
-             return ""; 
+             return "redirect:/Admin/AdminNewIngList"; 
          } else if ("Y".equals(user.getYu_auth())) {
-             return "redirect:/Libb/Home";
+             return "redirect:/";
          } else {
              request.setAttribute("msg", "권한이 없습니다.");
-             return "/libb/login";
+             return "login";
          }    
     }
 	
@@ -203,14 +195,15 @@ public class UserInfoController {
 	}
 	
 	// /Users/Logout
-	@RequestMapping(value= "/Logout",
-			method = RequestMethod.GET  )   //  == @GetMapping
-	public  String  logout(
-		HttpServletRequest   request,
-		HttpServletResponse  response,
-		HttpSession          session  ) {
-		
-		session.invalidate();   // session을 초기화
-		return  "home";
+	@RequestMapping(value= "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request) {
+	    // getSession(false)를 사용해, 세션이 없으면 새로 만들지 않고 null을 반환합니다.
+	    HttpSession session = request.getSession(false);
+	    
+	    if (session != null) {
+	        session.invalidate(); // 세션이 존재할 경우에만 무효화합니다.
+	    }
+	    
+	    return "redirect:/";
 	}
 }

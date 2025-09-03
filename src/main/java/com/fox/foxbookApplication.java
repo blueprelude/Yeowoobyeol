@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 
-@MapperScan("com.fox.paging.mapper")
-@MapperScan("com.fox.booklist.mapper")
+@MapperScan(basePackages = {"com.fox.paging.mapper", "com.fox.booklist.mapper", "com.fox.bookrental.mapper" , "com.fox.bookuser.mapper", "com.fox.admin.mapper" , "com.fox.users.mapper"})
 @SpringBootApplication
 @EnableScheduling
 public class foxbookApplication {

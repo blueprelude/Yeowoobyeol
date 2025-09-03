@@ -11,8 +11,8 @@
 </head>
 <body>
   <main>
-   <a href="/Libb/Home"><img src="/img/LightModeLogo.png" alt="여우별" class="logo"></a>
-	<form action="/Libb/Write" method="POST" class="joinForm" >                                                                                         
+   <a href="/"><img src="/img/LightModeLogo.png" alt="여우별" class="logo"></a>
+	<form action="/Write" method="POST" class="joinForm" >                                                                                         
       <div class="textForm">
         <input name="yu_userid" type="text" class="id" placeholder="아이디(5~12자)" maxlength="12">
         <input type="button" id="checkId" value="중복확인" >
@@ -65,7 +65,7 @@
     		return false
 	    }
 
-	   fetch("/Libb/CheckId?yu_userid=" + encodeURIComponent(userId))
+	   fetch("/CheckId?yu_userid=" + encodeURIComponent(userId))
 	        .then(res => res.text())
 	        .then(data => {
 	            if (data === 'NO') {

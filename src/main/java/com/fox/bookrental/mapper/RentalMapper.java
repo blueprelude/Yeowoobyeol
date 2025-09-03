@@ -21,7 +21,7 @@ public interface RentalMapper {
 	void updateRental(rentalDTO rentalDTO);
 	
 	// 대여/반납 갯수
-	int getTodaySameBookCount(@Param("userId") String userId,  @Param("ybi_idx")int ybi_idx);
+	int getTodaySameBookCount(@Param("yu_userid") String yu_userid,  @Param("ybi_idx")int ybi_idx);
 	
 	//모든 사용자의 도서대여리스트
 	List<rentalDTO> notReturnsBooks();

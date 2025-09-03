@@ -7,7 +7,7 @@
 		<!-- === 로고 === -->
 		<div class="logo-name">
 			<div class="logo-image">
-				<a href="#">
+				<a href="/">
 					<img id="logoimg" src="/img/LightModeLogo.png" alt="logo">
 					<img id="logoimgsmall" src="/img/SmallLogoLight.png" alt="logo">
 				</a>
@@ -45,7 +45,7 @@
             <!-- === 로그아웃 / 다크모드 스위치 === -->
 			<ul class="logout-mode">
 				<li>
-					<a href="#">
+					<a href="/logout"  onclick="return confirm('로그아웃 하시겠습니까?');">
 						<i class="fa-solid fa-arrow-right-from-bracket"></i>
 						<span class="link-name">로그아웃</span>
 					</a>

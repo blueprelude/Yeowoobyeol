@@ -9,7 +9,7 @@
 			SELECT count(*)
 			FROM yb_book_info ybi, yb_rental_info yri 
 			WHERE 
-		    yri.yu_userid = #{yu_userid}
+		    yri.yu_userid = #{yu_userid , jdbcType=VARCHAR}
 		    AND ybi.ybi_idx = yri.ybi_idx
 		    AND yri.yri_redate IS NULL
 	</select>
@@ -35,7 +35,7 @@
       SELECT YBI.YBI_IDX, YBI.YBI_SUBJECT, YBI.ybi_publi, YBI.YBI_NAME, to_char(YRI.YRI_RTDATE,'YYYY-MM-DD AM HH24:MI:SS') YRI_RTDATE, 
 	  to_char(YRI.YRI_REDATE,'YYYY-MM-DD HH24:MI:SS') as YRI_REDATE
       FROM YB_BOOK_INFO YBI, YB_RENTAL_INFO YRI
-      WHERE YRI.YU_USERID = #{yu_userid} AND YBI.YBI_IDX = YRI.YBI_IDX and yri.yri_redate is not null
+      WHERE YRI.YU_USERID = #{yu_userid } AND YBI.YBI_IDX = YRI.YBI_IDX and yri.yri_redate is not null
        <if test="params.keyword != null and params.keyword != ''">
          AND YBI.YBI_SUBJECT LIKE '%' || #{params.keyword} || '%'
        </if>
@@ -47,7 +47,7 @@
 	<select id="getBookList" resultType="com.fox.booklist.domain.booklistDTO">
    SELECT 
         YBI.YBI_IDX, YBI.YBI_SUBJECT, YBI.YBI_PUBLI, YBI.YBI_NAME, YBI.YBI_RENTAL,
-      CASE when max(CASE WHEN YRI.YU_USERID = #{yu_userid} AND YRI.YRI_REDATE IS NULL THEN '대여중' ELSE NULL END) = '대여중' THEN '대여중' ELSE '대여가능' END as rentalst
+      CASE when max(CASE WHEN YRI.YU_USERID = #{yu_userid ,jdbcType=VARCHAR} AND YRI.YRI_REDATE IS NULL THEN '대여중' ELSE NULL END) = '대여중' THEN '대여중' ELSE '대여가능' END as rentalst
     FROM yb_book_info YBI
     LEFT JOIN yb_rental_info YRI ON YBI.ybi_idx = YRI.ybi_idx
     <where>
@@ -60,7 +60,12 @@
            	 	YBI.YBI_NAME LIKE '%' || #{params.keyword} || '%'
             </when>
             <when test ="params.searchType == 'bookNum'">
-           	 	YBI.YBI_IDX = #{params.keyword}
+           	 	 <if test="params.keyword.matches('^[0-9]+$')">
+                    YBI.YBI_IDX = #{params.keyword}
+                </if>
+                <if test="!params.keyword.matches('^[0-9]+$')">
+                    1 = 2
+                </if>
             </when>
             <when test ="params.searchType == 'publi'">
            	 	YBI.YBI_PUBLI like '%' || #{params.keyword} || '%'
@@ -70,7 +75,7 @@
     </where>
      GROUP BY
     YBI.YBI_IDX, YBI.YBI_SUBJECT, YBI.YBI_PUBLI, YBI.YBI_NAME, YBI.YBI_RENTAL
-    having CASE when max (case when YRI.YU_USERID = #{yu_userid} AND YRI.YRI_REDATE IS NULL THEN '대여중' ELSE NULL END) = '대여중' THEN '대여중' ELSE '대여가능' END = '대여가능'
+    having CASE when max (case when YRI.YU_USERID = #{yu_userid ,jdbcType=VARCHAR} AND YRI.YRI_REDATE IS NULL THEN '대여중' ELSE NULL END) = '대여중' THEN '대여중' ELSE '대여가능' END = '대여가능'
     ORDER BY YBI.ybi_subject asc
     OFFSET #{params.offset} ROWS FETCH NEXT #{params.recordSize} ROWS ONLY
 </select>
