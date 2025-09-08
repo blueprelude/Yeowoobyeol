@@ -1,4 +1,4 @@
-\# 📚✨ 여우별 도서관
+# 📚✨ 여우별 도서관
 
 > JDBC + Spring Boot + Gradle 기반 **풀스택 전자 도서관 서비스**  
 > 사용자 → 로그인·검색·대여·반납  
@@ -44,7 +44,7 @@
 ## 💻 UI 미리보기
 
 ### 📖 메인
-| ![main png](./docs/main.png) |
+![main png](./docs/main.png)
 
 ### 🔑 로그인 & 회원가입
 | 로그인 | 회원가입 |
@@ -75,8 +75,11 @@
 		model.addAttribute("msg", "회원가입이 완료되었습니다.");
 		
 		return "login";
-	}
+}
 ```
+
+---
+```java
 @PostMapping("/Login")
     public  String   login(
        HttpServletRequest    request,
@@ -109,9 +112,11 @@
              request.setAttribute("msg", "권한이 없습니다.");
              return "login";
          }    
-    }
----
+}
 
+```
+
+---
 ### 2. 도서 대여
 ```java
 @RequestMapping("/Rent")
@@ -163,7 +168,7 @@
 		
 	    return "redirect:/RentalList";
 	    
-	}
+}
 ```
 
 ---
